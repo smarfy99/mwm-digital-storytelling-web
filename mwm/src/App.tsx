@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useRef } from "react";
+import { Mesh } from "three";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const Box = () => {
+  const boxRef = useRef<Mesh>(null!);
 
+  useFrame(() => {
+    boxRef.current.rotation.x += 0.005;
+    boxRef.current.rotation.y += 0.001;
+  });
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+    <mesh ref={boxRef}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="orange" />
+    </mesh>
+  );
+};
 
-export default App
+const ThreeScene = () => {
+  return (
+    <Canvas>
+      <ambientLight />
+      <pointLight position={[5, 5, 5]} />
+      <Box />
+    </Canvas>
+  );
+};
+
+const App = () => {
+  return (
+    <div className="App h-screen">
+      <ThreeScene />
+    </div>
+  );
+};
+
+export default App;
