@@ -1,7 +1,18 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, Camera, useLoader } from "@react-three/fiber";
+import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useRef } from "react";
 import { Mesh } from "three";
 import "./App.css";
+
+type MyModelProps = {
+  modelPath:string;
+};
+
+const MyModel = ({modelPath}:MyModelProps) => {
+  const gltf:GLTF = useLoader(GLTFLoader, modelPath);
+  gltf.scene.scale.set(0.015, 0.015, 0.015);
+  return <primitive object={gltf.scene} />;
+}
 
 const Box = () => {
   const boxRef = useRef<Mesh>(null!);
@@ -22,8 +33,9 @@ const ThreeScene = () => {
   return (
     <Canvas>
       <ambientLight />
-      <pointLight position={[5, 5, 5]} />
-      <Box />
+      <pointLight position={[0, 0, 1500]} />
+      {/* <Box /> */}
+      <MyModel modelPath="main.gltf" />
     </Canvas>
   );
 };
