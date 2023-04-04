@@ -2,39 +2,31 @@ import { Canvas, useFrame, Camera, useLoader } from "@react-three/fiber";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useRef } from "react";
 import { Mesh } from "three";
-import "./App.css";
+import { PerspectiveCamera } from "@react-three/drei";
+
+import SpaceBackground from "./components/SpaceBackground";
+import NavBar from "./components/NavBar";
 
 type MyModelProps = {
-  modelPath:string;
+  modelPath: string;
 };
 
-const MyModel = ({modelPath}:MyModelProps) => {
-  const gltf:GLTF = useLoader(GLTFLoader, modelPath);
+const MyModel = ({ modelPath }: MyModelProps) => {
+  const gltf: GLTF = useLoader(GLTFLoader, modelPath);
+  if(!gltf) {
+    return null;
+  }
   gltf.scene.scale.set(0.015, 0.015, 0.015);
-  return <primitive object={gltf.scene} />;
-}
-
-const Box = () => {
-  const boxRef = useRef<Mesh>(null!);
-
-  useFrame(() => {
-    boxRef.current.rotation.x += 0.005;
-    boxRef.current.rotation.y += 0.001;
-  });
-  return (
-    <mesh ref={boxRef}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="orange" />
-    </mesh>
-  );
+  // gltf.scene.rotation.x = -Math.PI/2;
+  
+  return <primitive className="w-full h-full" object={gltf.scene} />;
 };
 
 const ThreeScene = () => {
   return (
-    <Canvas>
+    <Canvas id="main" className="w-full h-full bg-red-300">
       <ambientLight />
-      <pointLight position={[0, 0, 1500]} />
-      {/* <Box /> */}
+      <pointLight position={[0, 150, 50]} />
       <MyModel modelPath="main.gltf" />
     </Canvas>
   );
@@ -42,9 +34,13 @@ const ThreeScene = () => {
 
 const App = () => {
   return (
-    <div className="App h-screen">
-      <ThreeScene />
-    </div>
+    <>
+      <div >
+        {/* <NavBar /> */}
+        <SpaceBackground />
+        {/* <ThreeScene /> */}
+      </div>
+    </>
   );
 };
 
