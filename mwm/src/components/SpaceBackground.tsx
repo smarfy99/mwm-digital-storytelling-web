@@ -1,6 +1,8 @@
 import React, { useMemo, useRef } from "react";
-import { Canvas, useFrame, MeshProps } from "@react-three/fiber";
+import { Canvas, useFrame, MeshProps, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
+import { GLTFLoader, GLTF } from "three/examples/jsm/loaders/GLTFLoader";
+import { Tubi } from '../gltf/Tubi';
 
 interface StarProps extends MeshProps {
   points: number[][];
@@ -25,7 +27,7 @@ function Star({ points, ...props }: StarProps) {
 
   return (
     <mesh {...props} ref={mesh}>
-      <sphereGeometry args={[1, 32, 32]} />
+      <sphereGeometry args={[0.5, 32, 32]} />
       <meshBasicMaterial attach="material" color={0xffffff} />
       <pointLight color={0xffffff} intensity={0.5} position={[0, 0, 1]} />
     </mesh>
@@ -45,7 +47,7 @@ function StarField({ starCount }: StarFieldProps) {
           Math.random() * 100 - 50,
           Math.random() * 100 - 50,
         ],
-        scale: Math.random() + 0.5,
+        scale: Math.random() + 20,
         points: [
           [-1.5, -1.5, 0],
           [0, -3, 0],
@@ -78,11 +80,10 @@ function StarField({ starCount }: StarFieldProps) {
 function SpaceBackground() {
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      {/* <h1 className="flex align-center justify-center h-30 text-slate-200 bg-transparent">Welcome to MWM</h1>
-      <img src="character.png" /> */}
       <Canvas className="w-full h-full">
         <color attach="background" args={["#000"]} />
         <StarField starCount={200} />
+        <Tubi />
       </Canvas>
     </div>
   );
