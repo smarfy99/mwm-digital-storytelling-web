@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from "react";
 import { Canvas, useFrame, MeshProps, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { GLTFLoader, GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-import { Tubi } from '../gltf/Tubi';
+import { Tubi } from "../gltf/Tubi";
 
 interface StarProps extends MeshProps {
   points: number[][];
@@ -83,7 +83,10 @@ function SpaceBackground() {
       <Canvas className="w-full h-full">
         <color attach="background" args={["#000"]} />
         <StarField starCount={200} />
-        <Tubi />
+        <Tubi scale={[0.05, 0.05, 0.05]} position={[0, -2, 0]} />
+        {/* <pointLight color={0xffffff} intensity={0.5} position={[0, 0, 1]} /> */}
+        <ambientLight />
+        <pointLight position={[0, 0, 0]} />
       </Canvas>
     </div>
   );
