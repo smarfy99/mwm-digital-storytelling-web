@@ -35,7 +35,7 @@ const ThreeScene = () => {
 const App = () => {
   return (
     <>
-      <div >
+      <div>
         {/* <NavBar /> */}
         <SpaceBackground />
         {/* <ThreeScene /> */}

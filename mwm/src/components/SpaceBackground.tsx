@@ -77,10 +77,10 @@ function StarField({ starCount }: StarFieldProps) {
 
 function SpaceBackground() {
   return (
-    <div>
+    <div className="w-screen h-screen flex justify-center items-center">
       {/* <h1 className="flex align-center justify-center h-30 text-slate-200 bg-transparent">Welcome to MWM</h1>
       <img src="character.png" /> */}
-      <Canvas>
+      <Canvas className="w-full h-full">
         <color attach="background" args={["#000"]} />
         <StarField starCount={200} />
       </Canvas>
