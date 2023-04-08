@@ -6,6 +6,7 @@ import { PerspectiveCamera } from "@react-three/drei";
 
 import SpaceBackground from "./components/SpaceBackground";
 import NavBar from "./components/NavBar";
+import TubiSpline from "./components/Tubi";
 
 // // gltf
 // type MyModelProps = {
@@ -38,9 +39,7 @@ const App = () => {
     <>
       <div>
         {/* <NavBar /> */}
-        <SpaceBackground />
-        {/* <ThreeScene /> */}
-        {/* <ThreeScene /> */}
+        <TubiSpline />
       </div>
     </>
   );
