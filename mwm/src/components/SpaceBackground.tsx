@@ -28,7 +28,6 @@ function Star({ points, ...props }: StarProps) {
     <mesh {...props} ref={mesh}>
       <sphereGeometry args={[0.5, 32, 32]} />
       <meshBasicMaterial attach="material" color={0xffffff} />
-      <TubiSpline />
       <pointLight color={0xffffff} intensity={0.5} position={[0, 0, 1]} />
     </mesh>
   );
