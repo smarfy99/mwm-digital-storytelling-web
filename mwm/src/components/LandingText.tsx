@@ -15,7 +15,7 @@ const LandingText = () => {
   }, []);
   return (
     <div className="absolute">
-      <h3>OZI</h3>
+      <h3 className="text-[#BFC4DF] text-8xl">OZI</h3>
       <canvas ref={canvas} />
     </div>
   );

@@ -8,12 +8,13 @@ const TubiSpline = () => {
   useEffect(() => {
     const canvas = canvasRef.current!;
     const spline = new Application(canvas);
-    spline.load("https://prod.spline.design/FzdrAwf7eidWDQIc/scene.splinecode");
+    // spline.load("https://prod.spline.design/FzdrAwf7eidWDQIc/scene.splinecode");
+    spline.load("https://prod.spline.design/CYTHlvTvhIoFmrkT/scene.splinecode");
     splineRef.current = spline;
   }, []);
 
   return (
-    <div className="absolute flex w-5/12 h-full left-0">
+    <div className="absolute flex w-full h-full">
       <canvas className="flex w-full h-full" ref={canvasRef} />
     </div>
   );
