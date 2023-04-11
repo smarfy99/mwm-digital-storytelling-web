@@ -1,4 +1,3 @@
-import SpaceBack from "./components/SpaceBack";
 import Landing from './pages/Landing';
 
 const App = () => {
