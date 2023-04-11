@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { Application } from "@splinetool/runtime";
-import SpaceBackground from "./SpaceBackground";
 
 function TubiSpline() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -16,7 +15,6 @@ function TubiSpline() {
   return (
     <div>
       <canvas ref={canvasRef} />
-      {/* <SpaceBackground /> */}
     </div>
   );
 }
