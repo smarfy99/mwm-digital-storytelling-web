@@ -13,7 +13,7 @@ const Planet1 = () => {
   }, []);
 
   return (
-    <div className="absolute w-3/12 h-5/12 left-0">
+    <div className="absolute left-0">
       <canvas className="w-full h-full" ref={canvasRef} />
     </div>
   );
