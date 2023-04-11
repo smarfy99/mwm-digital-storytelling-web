@@ -1,7 +1,9 @@
+import SpaceBack from "../components/SpaceBack";
+
 const Galaxy = () => {
   return (
-    <div>Galaxy</div>
-  )
-}
+    <SpaceBack />
+  );
+};
 
-export default Galaxy
+export default Galaxy;

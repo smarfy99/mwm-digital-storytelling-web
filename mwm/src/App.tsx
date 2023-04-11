@@ -1,3 +1,4 @@
+import Galaxy from './pages/Galaxy';
 import Landing from './pages/Landing';
 
 const App = () => {
@@ -5,6 +6,7 @@ const App = () => {
     <>
       <div>
         <Landing />
+        <Galaxy />
       </div>
     </>
   );
