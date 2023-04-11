@@ -12,7 +12,11 @@ function TubiSpline() {
     splineRef.current = spline;
   }, []);
 
-  return <canvas className="absolute" ref={canvasRef} />;
+  return (
+    <div className="absolute w-6/12 h-full left-0">
+      <canvas className="w-full h-full" ref={canvasRef} />
+    </div>
+  );
 }
 
 export default TubiSpline;
