@@ -1,22 +1,22 @@
 import { useEffect, useRef } from "react";
 import { Application } from "@splinetool/runtime";
 
-const TubiSpline = () => {
+const Planet = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const splineRef = useRef<Application | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
     const spline = new Application(canvas);
-    spline.load("https://prod.spline.design/FzdrAwf7eidWDQIc/scene.splinecode");
+    spline.load("https://prod.spline.design/m12wzSK0bmNNl-Nm/scene.splinecode");
     splineRef.current = spline;
   }, []);
 
   return (
-    <div className="absolute w-6/12 h-full left-0">
+    <div className="absolute">
       <canvas className="w-full h-full" ref={canvasRef} />
     </div>
   );
-}
+};
 
-export default TubiSpline;
+export default Planet;
