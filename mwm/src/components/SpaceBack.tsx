@@ -83,9 +83,9 @@ const SpaceBack = () => {
 
     for (let i = 0; i < 10000; i++) {
       const star = new THREE.Vector3();
-      star.x = THREE.MathUtils.randFloatSpread(2000);
-      star.y = THREE.MathUtils.randFloatSpread(2000);
-      star.z = THREE.MathUtils.randFloatSpread(2000);
+      star.x = THREE.MathUtils.randFloatSpread(2500);
+      star.y = THREE.MathUtils.randFloatSpread(2500);
+      star.z = THREE.MathUtils.randFloatSpread(2500);
 
       vertices.push(star.x, star.y, star.z);
     }
@@ -103,7 +103,7 @@ const SpaceBack = () => {
     scene.add(starField);
 
     function render() {
-      rot += 0.1;
+      rot += 0.03;
       const radian = (rot * Math.PI) / 180;
       camera.position.x = 1000 * Math.sin(radian);
       camera.position.z = 1000 * Math.cos(radian);
