@@ -7,4 +7,5 @@ Making 'Digital Storytelling Web' with C4D &amp; Three.js
 - Core : React, Typescript, Three, React-three-fiber
 - Build : vite, SWC
 - Style : Tailwind css
-- CI/CD : github pages
+- CI/CD : netlify
+- Modeling : C4D, Spline
