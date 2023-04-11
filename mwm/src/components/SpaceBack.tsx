@@ -20,7 +20,7 @@ const StarField = () => {
   const starField = useRef<THREE.Points>(null);
 
   useFrame(({ clock, camera }) => {
-    const rot = clock.elapsedTime * 0.1;
+    const rot = clock.elapsedTime * 0.7;
     const radian = (rot * Math.PI) / 180;
     camera.position.x = 1000 * Math.sin(radian);
     camera.position.z = 1000 * Math.cos(radian);
@@ -37,7 +37,7 @@ const StarField = () => {
 
 const SpaceBack = () => {
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="overflow-hidden w-screen h-screen flex justify-center items-center">
       <Canvas
         className="bg-gradient-to-br from-indigo-900 to-neutral-800 w-full h-full"
         onCreated={({ gl }) => {
