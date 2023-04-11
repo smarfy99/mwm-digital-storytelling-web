@@ -14,8 +14,8 @@ const LandingText = () => {
     ctx = canvasEle.getContext("2d");
   }, []);
   return (
-    <div className="absolute">
-      <h3 className="text-[#BFC4DF] text-8xl">OZI</h3>
+    <div className="absolute flex">
+      <h3 className="flex ml-9 text-[#BFC4DF] text-[180px] justify-center items-center">OZI</h3>
       <canvas ref={canvas} />
     </div>
   );
