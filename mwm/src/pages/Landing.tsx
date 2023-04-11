@@ -1,5 +1,5 @@
 import SpaceBack from "../components/SpaceBack";
-import TubiSpline from "../components/Tubi";
+import TubiSpline from "../components/Mozi";
 
 const Landing = () => {
   return (
