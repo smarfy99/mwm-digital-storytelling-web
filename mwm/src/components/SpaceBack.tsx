@@ -61,7 +61,6 @@
 // 그냥 react, typescript
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import TubiSpline from "./Mozi";
 
 const SpaceBack = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
