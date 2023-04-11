@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Application } from "@splinetool/runtime";
 
-const Planet = () => {
+const Planet1 = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const splineRef = useRef<Application | null>(null);
 
@@ -13,10 +13,10 @@ const Planet = () => {
   }, []);
 
   return (
-    <div className="absolute">
+    <div className="absolute w-3/12 h-5/12 left-0">
       <canvas className="w-full h-full" ref={canvasRef} />
     </div>
   );
 };
 
-export default Planet;
+export default Planet1;
