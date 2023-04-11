@@ -61,6 +61,7 @@
 // 그냥 react, typescript
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import TubiSpline from "./Tubi";
 
 const SpaceBack = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -130,13 +131,11 @@ const SpaceBack = () => {
   }, []);
 
   return (
-    <div className="relative overflow-hidden w-screen h-screen flex justify-center items-center">
       <canvas
         id="canvas"
         className="absolute bg-gradient-to-b from-gray-900 to-slate-800 w-full h-full"
         ref={canvasRef}
       />
-    </div>
   );
 };
 
