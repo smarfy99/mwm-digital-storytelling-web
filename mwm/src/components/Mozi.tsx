@@ -13,8 +13,8 @@ const TubiSpline = () => {
   }, []);
 
   return (
-    <div className="absolute w-6/12 h-full left-0">
-      <canvas className="w-full h-full" ref={canvasRef} />
+    <div className="absolute flex w-5/12 h-full left-0">
+      <canvas className="flex w-full h-full" ref={canvasRef} />
     </div>
   );
 }
