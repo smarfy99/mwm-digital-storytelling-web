@@ -9,7 +9,6 @@ const Landing = () => {
     <div className="relative overflow-hidden w-screen h-screen flex justify-center items-center">
       <SpaceBack />
       <LandingText />
-      <Loading />
       <TubiSpline />
     </div>
   );
