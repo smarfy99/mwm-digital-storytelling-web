@@ -6,7 +6,7 @@ import { useMemo } from "react";
 
 const Landing = () => {
   return (
-    <div className="relative overflow-hidden w-screen h-screen flex justify-center items-center">
+    <div className="relative w-screen h-screen flex justify-center items-center">
       <SpaceBack />
       <LandingText />
       <TubiSpline />

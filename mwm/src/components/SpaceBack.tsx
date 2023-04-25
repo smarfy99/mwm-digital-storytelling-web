@@ -62,6 +62,10 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+export interface className {
+
+}
+
 const SpaceBack = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -132,7 +136,7 @@ const SpaceBack = () => {
   return (
       <canvas
         id="canvas"
-        className="absolute bg-gradient-to-b from-gray-900 to-slate-800 w-full h-full"
+        className="fixed bg-gradient-to-b from-gray-900 to-slate-800 w-full h-full"
         ref={canvasRef}
       />
   );
