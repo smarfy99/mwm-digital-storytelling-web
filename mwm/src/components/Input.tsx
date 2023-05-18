@@ -1,6 +1,8 @@
 const Input = () => {
   return (
-    <div>Input</div>
+    <div>
+        <input className="outline-0 underline-offset-auto" type="text"/>
+    </div>
   )
 }
 

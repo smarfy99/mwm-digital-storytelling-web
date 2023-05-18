@@ -1,3 +1,4 @@
+import Archive from './pages/Archive';
 import Galaxy from './pages/Galaxy';
 import Landing from './pages/Landing';
 
@@ -7,6 +8,7 @@ const App = () => {
       <div>
         <Landing />
         <Galaxy />
+        <Archive />
       </div>
     </>
   );
