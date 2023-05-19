@@ -34,3 +34,4 @@ dist-ssr
 ### Firebase Patch ###
 .runtimeconfig.json
 .firebase/
+firebase.ts
