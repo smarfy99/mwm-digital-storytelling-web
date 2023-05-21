@@ -1,15 +1,15 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
 import { firebaseConfig } from '../firebase';
-import { getDatabase, ref, push, onValue } from 'firebase/database';
+import { getDatabase, ref, push, onValue, set } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-const database = getDatabase();
+const database = getDatabase(app);
 
 type Message = {
   name?: string;
@@ -27,7 +27,7 @@ const Input = () => {
     const user = userRef.current?.value;
 
     if (input) {
-      const message: Message = {
+      const messages: Message = {
         name: user,
         text: input,
         timestamp: Date.now(),
@@ -68,11 +68,13 @@ const Input = () => {
         ))}
       </div>
       <div>
-        <input type="text" ref={userRef} className="flex outline-0 underline-offset-auto" />
-        <input type="text" ref={inputRef} className="flex outline-0 underline-offset-auto" />
-        <button type="submit" onClick={sendMessage} className="flex text-slate-100 ">
-          확인
-        </button>
+        <form>
+          <input type="text" ref={userRef} className="flex outline-0 underline-offset-auto" />
+          <input type="text" ref={inputRef} className="flex outline-0 underline-offset-auto" />
+          <button type="submit" onClick={sendMessage} className="flex text-slate-100 ">
+            확인
+          </button>
+        </form>
       </div>
     </div>
   );
