@@ -19,6 +19,7 @@ const Input = () => {
     const messageRef = ref(database, 'messages');
     onValue(messageRef, (snapshot) => {
       const data = snapshot.val();
+      console.log(data);
       if (data) {
         const messageList: Message[] = Object.values(data);
         setMessages(messageList);
@@ -26,7 +27,8 @@ const Input = () => {
     });
   }, []);
 
-  const sendMessage = () => {
+  const sendMessage = (e: any) => {
+    e.preventDefault(); // 새로고침 방지
     const input = inputRef.current?.value;
     const user = userRef.current?.value;
 
@@ -43,32 +45,18 @@ const Input = () => {
       // clear input
       if (inputRef.current) {
         inputRef.current!.value = '';
+        userRef.current!.value = '';
       }
     }
   };
-  // firebase에서 다시 불러오기
-  // const messageRef = ref(database, 'messages');
-  // onValue(messageRef, (snapshot) => {
-  //   const data = snapshot.val();
-  //   const messageList: Message[] = [];
-
-  //   for (let key in data) {
-  //     messageList.push({
-  //       name: data[key].name,
-  //       text: data[key].text,
-  //       timestamp: data[key].timestamp,
-  //     });
-  //   }
-  //   setMessages(messageList);
-  // });
 
   return (
     <div>
       <div>
         {messages.map((message, index) => (
           <div key={index}>
-            <span>{message.name}: </span>
-            <span>{message.text}</span>
+            <span className="text-white">{message.name}: </span>
+            <span className="text-white">{message.text}</span>
           </div>
         ))}
       </div>
