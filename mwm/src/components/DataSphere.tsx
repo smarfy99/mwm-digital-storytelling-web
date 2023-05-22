@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 // 외부 패키지
 import TagCloud from 'TagCloud';
 
-const DataSphere = () => {
+const DataSphere = ({}) => {
   useEffect(() => {
     return () => {
       const container: string = '.tagcloud';

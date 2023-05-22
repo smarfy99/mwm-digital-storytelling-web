@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { database } from '../firebase';
 import { ref, push, onValue, set } from 'firebase/database';
 
-type Message = {
+interface Message {
   name?: string;
   text: string;
   timestamp: number;
