@@ -1,13 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import firebase from 'firebase/app';
-import { firebaseConfig } from '../firebase';
+import { app, analytics } from '../firebase';
 import { getDatabase, ref, push, onValue, set } from 'firebase/database';
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 const database = getDatabase(app);
 
