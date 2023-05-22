@@ -35,3 +35,4 @@ dist-ssr
 .runtimeconfig.json
 .firebase/
 firebase.ts
+.env
