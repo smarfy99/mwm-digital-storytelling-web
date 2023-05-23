@@ -3,13 +3,18 @@ import { Message } from './Input';
 
 // 외부 패키지
 import TagCloud from 'TagCloud';
+// {
+//   messages.map((message, index) => <DataSphere key={index} message={messages} />);
+// }
 
-const DataSphere = ({ message }: { message: Message }) => {
-  const { name, text, timestamp } = message;
+const DataSphere = ({ messages }: { messages: Message[] }) => {
+  const textArr = messages.map((message) => message.text);
+
   useEffect(() => {
     return () => {
       const container: string = '.tagcloud';
-      const texts: string[] = [text];
+      const texts: string[] = textArr;
+
       const options: object = {
         radius: 300,
         maxSpeed: 'normal',

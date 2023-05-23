@@ -19,7 +19,6 @@ const Input = () => {
     const messageRef = ref(database, 'messages');
     onValue(messageRef, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
       if (data) {
         const messageList: Message[] = Object.values(data);
         setMessages(messageList);
@@ -62,9 +61,7 @@ const Input = () => {
         </form>
       </div>
       <div className="flex">
-        {messages.map((message, index) => (
-          <DataSphere key={index} message={message} />
-        ))}
+        <DataSphere messages={messages} />
       </div>
     </div>
   );
