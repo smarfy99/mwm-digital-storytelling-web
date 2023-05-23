@@ -58,7 +58,7 @@ const MoziLanding = () => {
   }, []);
 
   return (
-    <div className="absolute w-fit h-fit">
+    <div className="absolute w-full h-full">
       <canvas className="w-fit h-fit" ref={canvasRef} />
     </div>
   );
