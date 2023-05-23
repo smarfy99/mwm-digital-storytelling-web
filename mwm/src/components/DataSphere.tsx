@@ -9,22 +9,12 @@ interface DataSphereProps {
 }
 
 const DataSphere = ({ messages }: DataSphereProps) => {
-  // const textArr = messages.map((message) => message.text);
-  // const tagCloudRef = useRef<TagCloud | null>(null);
-
-  const textArr = useRef<string[]>([]);
+  const textArr = messages.map((message) => message.text);
+  const tagCloudRef = useRef<TagCloud | null>(null);
 
   useEffect(() => {
     const container = '.tagcloud';
-
-    // Update textArr when messages change
-    textArr.current = messages.map((message) => message.text);
-
-    // Destroy previous tag cloud instance
-    const prevTagCloud = TagCloud(container, textArr.current);
-    prevTagCloud.destroy();
-
-    // Create new tag cloud instance
+    const texts = textArr;
     const options: TagCloudOptions = {
       radius: 300,
       maxSpeed: 'normal',
@@ -32,7 +22,18 @@ const DataSphere = ({ messages }: DataSphereProps) => {
       keep: true,
     };
 
-    TagCloud(container, textArr.current, options);
+    if (tagCloudRef.current) {
+      tagCloudRef.current.update(texts);
+    } else {
+      tagCloudRef.current = TagCloud(container, texts, options);
+    }
+
+    return () => {
+      if (tagCloudRef.current) {
+        tagCloudRef.current.destroy();
+        tagCloudRef.current = null;
+      }
+    };
   }, [messages]);
   return (
     <>
