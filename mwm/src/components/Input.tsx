@@ -74,9 +74,9 @@ const Input = () => {
             </button>
           </form>
         </div>
-        <div className="flex items-center justify-center w-screen h-full">
-          <DataSphere messages={messages} />
-        </div>
+      </div>
+      <div className="flex items-center justify-center w-full h-full">
+        <DataSphere messages={messages} />
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ const DataSphere = ({ messages }: DataSphereProps) => {
     const container = '.tagcloud';
     const texts = textArr;
     const options: TagCloudOptions = {
-      radius: 300,
+      radius: 500,
       maxSpeed: 'normal',
       initSpeed: 'normal',
       keep: true,
