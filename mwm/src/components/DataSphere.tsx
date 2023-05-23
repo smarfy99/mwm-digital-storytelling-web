@@ -25,8 +25,10 @@ const DataSphere = ({ messages }: { messages: Message[] }) => {
 
   return (
     <>
-      <div className="relative top-0 flex justify-center items-center w-52 h-52">
-        <div className="tagcloud inline-block top-0 left-0 text-white hover:text-blue-600"></div>
+      <div className="relative top-0 flex justify-center items-center w-fit h-fit overflow-visible">
+        <div className="tagcloud inline-block top-0 left-0 text-white">
+          {/* <span className="tagcloud--item hover:text-blue-600"></span> */}
+        </div>
       </div>
     </>
   );
