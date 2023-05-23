@@ -52,10 +52,11 @@ const Input = () => {
 
   return (
     <div className="flex">
-      <div className="flex flex-col justify-center items-center my-6">
-        <div className="flex text-white">여러분은 무엇에 중독되어 있다고 생각하시나요?</div>
-        <div className="flex z-50">
-          <form>
+      <div className="flex flex-col justify-center items-center">
+        <div className="flex text-white">무엇에 중독되어 있다고</div>
+        <div className="flex text-white">생각하시나요?</div>
+        <div className="flex justify-center items-center z-50 my-3">
+          <form className="flex flex-col justify-center items-center">
             <input
               type="text"
               autoFocus
@@ -69,7 +70,11 @@ const Input = () => {
               placeholder="ex)일"
               className="flex outline-0 underline-offset-auto focus:border-b-2 focus:border-b-[#6EFFF1] placeholder:italic placeholder:text-slate-400"
             />
-            <button type="submit" onClick={sendMessage} className="flex text-slate-100 ">
+            <button
+              type="submit"
+              onClick={sendMessage}
+              className="flex text-slate-100 justify-center items-center bg-gradient-to-r from-[#6ED2FF] to-[#8CE2D2] w-24 h-8 rounded-2xl mt-4"
+            >
               확인
             </button>
           </form>
