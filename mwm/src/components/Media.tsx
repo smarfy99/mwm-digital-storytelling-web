@@ -46,14 +46,14 @@
 import { useEffect, useRef } from 'react';
 import { Application } from '@splinetool/runtime';
 
-const MoziLanding = () => {
+const Media = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const splineRef = useRef<Application | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
     const spline = new Application(canvas);
-    spline.load('https://prod.spline.design/y8woy-r5k15bRDAC/scene.splinecode');
+    spline.load('https://prod.spline.design/PpJpqAdyAv8TNCIG/scene.splinecode');
     splineRef.current = spline;
   }, []);
 
@@ -64,4 +64,4 @@ const MoziLanding = () => {
   );
 };
 
-export default MoziLanding;
+export default Media;

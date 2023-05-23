@@ -7,7 +7,7 @@ const App = () => {
     <>
       <div>
         <Landing />
-        <Galaxy />
+        {/* <Galaxy /> */}
         <Archive />
       </div>
     </>
