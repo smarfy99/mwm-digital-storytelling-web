@@ -20,7 +20,6 @@ const Input = () => {
     onValue(messageRef, (snapshot) => {
       console.log(1);
       const data = snapshot.val();
-      // console.log(data);
       if (data) {
         console.log(data);
         const messageList: Message[] = Object.values(data);
@@ -53,7 +52,7 @@ const Input = () => {
   };
 
   return (
-    <div className='flex'>
+    <div className="flex">
       <div className="flex flex-col justify-center items-center mr-80">
         <div className="flex text-white">여러분은 무엇에 중독되어 있다고 생각하시나요?</div>
         <div className="flex z-50">
