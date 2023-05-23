@@ -2,20 +2,29 @@ import { useEffect, useRef } from 'react';
 import { Message } from './Input';
 
 // 외부 패키지
-import { TagCloud, TagCloudOptions } from 'TagCloud';
+import TagCloud, { TagCloudOptions } from 'TagCloud';
 
 interface DataSphereProps {
   messages: Message[];
 }
 
 const DataSphere = ({ messages }: DataSphereProps) => {
-  const textArr = messages.map((message) => message.text);
-  const tagCloudRef = useRef<TagCloud | null>(null);
+  // const textArr = messages.map((message) => message.text);
+  // const tagCloudRef = useRef<TagCloud | null>(null);
+
+  const textArr = useRef<string[]>([]);
 
   useEffect(() => {
     const container = '.tagcloud';
-    const texts = textArr;
 
+    // Update textArr when messages change
+    textArr.current = messages.map((message) => message.text);
+
+    // Destroy previous tag cloud instance
+    const prevTagCloud = TagCloud(container, textArr.current);
+    prevTagCloud.destroy();
+
+    // Create new tag cloud instance
     const options: TagCloudOptions = {
       radius: 300,
       maxSpeed: 'normal',
@@ -23,19 +32,8 @@ const DataSphere = ({ messages }: DataSphereProps) => {
       keep: true,
     };
 
-    if (tagCloudRef.current) {
-      tagCloudRef.current.distroy();
-    }
-
-    tagCloudRef.current = new TagCloud(container, texts, options);
-
-    return () => {
-      if (tagCloudRef.current) {
-        tagCloudRef.current.destroy();
-      }
-    };
-  }, [textArr]);
-
+    TagCloud(container, textArr.current, options);
+  }, [messages]);
   return (
     <>
       <div className="relative top-0 flex justify-center items-center w-fit h-fit overflow-visible">
