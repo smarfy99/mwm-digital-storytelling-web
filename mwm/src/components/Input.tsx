@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { database } from '../firebase';
-import { ref, push, onValue, set } from 'firebase/database';
+import { ref, push, onValue } from 'firebase/database';
+import DataSphere from './DataSphere';
 
 interface Message {
   name?: string;
   text: string;
   timestamp: number;
-};
+}
 
 const Input = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -51,7 +51,7 @@ const Input = () => {
   };
 
   return (
-    <div>
+    <div className="flex">
       <div>
         {messages.map((message, index) => (
           <div key={index}>
@@ -60,7 +60,7 @@ const Input = () => {
           </div>
         ))}
       </div>
-      <div>
+      <div className="flex">
         <form>
           <input type="text" ref={userRef} className="flex outline-0 underline-offset-auto" />
           <input type="text" ref={inputRef} className="flex outline-0 underline-offset-auto" />
@@ -68,6 +68,9 @@ const Input = () => {
             확인
           </button>
         </form>
+      </div>
+      <div className="flex">
+        <DataSphere />
       </div>
     </div>
   );

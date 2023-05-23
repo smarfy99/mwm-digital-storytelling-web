@@ -35,7 +35,7 @@ const DataSphere = ({}) => {
   return (
     <>
       <div className="relative top-0 flex justify-center items-center w-52 h-52">
-        <span className="tagcloud inline-block top-0 left-0 text-white hover:text-blue-600"></span>
+        <div className="tagcloud inline-block top-0 left-0 text-white hover:text-blue-600"></div>
       </div>
     </>
   );
