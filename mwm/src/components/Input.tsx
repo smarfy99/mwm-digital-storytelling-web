@@ -3,7 +3,7 @@ import { database } from '../firebase';
 import { ref, push, onValue } from 'firebase/database';
 import DataSphere from './DataSphere';
 
-interface Message {
+export interface Message {
   name?: string;
   text: string;
   timestamp: number;
@@ -52,14 +52,6 @@ const Input = () => {
 
   return (
     <div className="flex">
-      <div>
-        {messages.map((message, index) => (
-          <div key={index}>
-            <span className="text-white">{message.name}: </span>
-            <span className="text-white">{message.text}</span>
-          </div>
-        ))}
-      </div>
       <div className="flex">
         <form>
           <input type="text" ref={userRef} className="flex outline-0 underline-offset-auto" />
@@ -70,7 +62,9 @@ const Input = () => {
         </form>
       </div>
       <div className="flex">
-        <DataSphere />
+        {messages.map((message, index) => (
+          <DataSphere key={index} message={message} />
+        ))}
       </div>
     </div>
   );
