@@ -7,7 +7,19 @@ const DataSphere = ({}) => {
   useEffect(() => {
     return () => {
       const container: string = '.tagcloud';
-      const texts: string[] = ['jiwon', '직우', '사랑', '안녕', '나는', '지원', '이야'];
+      const texts: string[] = [
+        'jiwon',
+        '직우',
+        '사랑',
+        '안녕',
+        '나는',
+        '지원',
+        '이야',
+        'ehdrlf',
+        'wldnjs',
+        'dksl',
+        'anjdi',
+      ];
 
       const options: object = {
         radius: 300,
@@ -22,8 +34,8 @@ const DataSphere = ({}) => {
 
   return (
     <>
-      <div className="relative flex justify-center items-center w-50 h-50">
-        <span className="inline-block text-white"></span>
+      <div className="relative top-0 flex justify-center items-center w-52 h-52">
+        <span className="tagcloud inline-block top-0 left-0 text-white hover:text-blue-600"></span>
       </div>
     </>
   );
