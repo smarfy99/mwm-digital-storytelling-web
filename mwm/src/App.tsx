@@ -6,7 +6,6 @@ const App = () => {
     <>
       <div className='flex flex-col'>
         <Landing />
-        {/* <Galaxy /> */}
         <Archive />
       </div>
     </>

@@ -58,7 +58,7 @@ const MoziLanding = () => {
   }, []);
 
   return (
-    <div className="flex relative w-full h-full">
+    <div className="flex relative w-screen h-screen ">
       <canvas className="w-full h-full" ref={canvasRef} />
     </div>
   );
