@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { Application } from '@splinetool/runtime';
-import Spline, { SPEObject } from '@splinetool/react-spline';
 
 const MoziLanding = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -9,8 +8,7 @@ const MoziLanding = () => {
   useEffect(() => {
     const canvas = canvasRef.current!;
     const spline = new Application(canvas);
-    spline.load('https://my.spline.design/iv5rZBDrjONOwvEO9lwB7ODn/').then(() => {
-    });
+    spline.load('https://prod.spline.design/a5OorMZ5p8k8H9em/scene.splinecode');
     splineRef.current = spline;
   }, []);
 
