@@ -13,8 +13,8 @@ const Coding = () => {
   }, []);
 
   return (
-    <div className="absolute w-full h-full">
-      <canvas className="w-fit h-fit" ref={canvasRef} />
+    <div className="flex relative w-full h-full">
+      <canvas className="w-full h-full" ref={canvasRef} />
     </div>
   );
 };

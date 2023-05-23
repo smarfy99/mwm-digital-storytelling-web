@@ -2,7 +2,7 @@ import Input from '../components/Input';
 
 const Archive = () => {
   return (
-    <div className="relative overflow-hidden w-screen h-screen flex justify-center items-center">
+    <div className="relative w-screen h-screen flex justify-center items-center">
       <Input />
     </div>
   );

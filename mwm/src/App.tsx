@@ -1,11 +1,10 @@
 import Archive from './pages/Archive';
-import Galaxy from './pages/Galaxy';
 import Landing from './pages/Landing';
 
 const App = () => {
   return (
     <>
-      <div>
+      <div className='flex flex-col'>
         <Landing />
         {/* <Galaxy /> */}
         <Archive />
