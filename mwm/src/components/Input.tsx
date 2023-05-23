@@ -52,7 +52,7 @@ const Input = () => {
 
   return (
     <div className="flex">
-      <div className="flex flex-col justify-center items-center mr-80">
+      <div className="flex flex-col justify-center items-center my-6">
         <div className="flex text-white">여러분은 무엇에 중독되어 있다고 생각하시나요?</div>
         <div className="flex z-50">
           <form>
@@ -61,22 +61,22 @@ const Input = () => {
               autoFocus
               ref={userRef}
               placeholder="이름을 입력해주세요."
-              className="flex outline-0 underline-offset-auto my-2  placeholder:italic placeholder:text-slate-400"
+              className="flex outline-0 underline-offset-auto my-2 focus:border-b-2 focus:border-b-[#6EFFF1] placeholder:italic placeholder:text-slate-400"
             />
             <input
               type="text"
               ref={inputRef}
               placeholder="ex)일"
-              className="flex outline-0 underline-offset-auto placeholder:italic placeholder:text-slate-400"
+              className="flex outline-0 underline-offset-auto focus:border-b-2 focus:border-b-[#6EFFF1] placeholder:italic placeholder:text-slate-400"
             />
             <button type="submit" onClick={sendMessage} className="flex text-slate-100 ">
               확인
             </button>
           </form>
         </div>
-      </div>
-      <div className="flex items-center justify-center w-60 h-60">
-        <DataSphere messages={messages} />
+        <div className="flex items-center justify-center w-screen h-full">
+          <DataSphere messages={messages} />
+        </div>
       </div>
     </div>
   );
