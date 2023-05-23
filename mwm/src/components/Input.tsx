@@ -18,7 +18,6 @@ const Input = () => {
     //  파이어베이스에서 초기 데이터를 가져온다.
     const messageRef = ref(database, 'messages');
     onValue(messageRef, (snapshot) => {
-      console.log(1);
       const data = snapshot.val();
       if (data) {
         console.log(data);
