@@ -62,13 +62,13 @@ const Input = () => {
               autoFocus
               ref={userRef}
               placeholder="이름을 입력해주세요."
-              className="flex outline-0 underline-offset-auto my-2 focus:border-b-2 focus:border-b-[#6EFFF1] placeholder:italic placeholder:text-slate-400"
+              className="flex bg-slate-700 h-8 rounded-lg outline-0 underline-offset-auto p-2 my-2 focus:border-b-2 focus:border-b-[#6EFFF1] placeholder:italic placeholder:text-slate-400"
             />
             <input
               type="text"
               ref={inputRef}
               placeholder="ex)일"
-              className="flex outline-0 underline-offset-auto focus:border-b-2 focus:border-b-[#6EFFF1] placeholder:italic placeholder:text-slate-400"
+              className="flex bg-slate-700 h-8 rounded-lg outline-0 underline-offset-auto p-2 focus:border-b-2 focus:border-b-[#6EFFF1] placeholder:italic placeholder:text-slate-400"
             />
             <button
               type="submit"
