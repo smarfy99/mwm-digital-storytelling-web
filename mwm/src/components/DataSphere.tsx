@@ -10,7 +10,7 @@ interface DataSphereProps {
 
 const DataSphere = ({ messages }: DataSphereProps) => {
   const textArr = messages.map((message) => message.text);
-  const tagCloudRef = useRef<TagCloud | null>(null);
+  const tagCloudRef = useRef<any>(null);
 
   useEffect(() => {
     const container = '.tagcloud';
