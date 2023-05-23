@@ -1,13 +1,11 @@
 import SpaceBack from "../components/SpaceBack";
-import MoziSpline from "../components/Mozi";
-import LandingText from "../components/LandingText";
+import MoziLanding from "../components/MoziLanding";
 
 const Landing = () => {
   return (
     <div className="relative w-screen h-screen flex justify-center items-center">
       <SpaceBack />
-      <LandingText />
-      <MoziSpline />
+      <MoziLanding />
     </div>
   );
 };
