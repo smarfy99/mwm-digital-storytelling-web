@@ -53,8 +53,8 @@ const Input = () => {
   return (
     <div className="flex">
       <div className="flex flex-col justify-center items-center">
-        <div className="flex text-white">무엇에 중독되어 있다고</div>
-        <div className="flex text-white">생각하시나요?</div>
+        <div className="flex text-white">당신이 생각하는 페르소나를</div>
+        <div className="flex text-white">한 단어로 표현해주세요</div>
         <div className="flex justify-center items-center z-50 my-3">
           <form className="flex flex-col justify-center items-center">
             <input
