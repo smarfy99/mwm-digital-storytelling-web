@@ -8,10 +8,10 @@ const Landing = () => {
   return (
     <div className="flex flex-col">
       <SpaceBack />
-      <MoziLanding />
-      <Introduction />
-      <Media />
-      <Coding />
+      {/* <MoziLanding /> */}
+      {/* <Introduction /> */}
+      {/* <Media /> */}
+      {/* <Coding /> */}
     </div>
   );
 };
