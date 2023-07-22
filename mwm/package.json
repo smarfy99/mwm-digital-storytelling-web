@@ -35,6 +35,7 @@
     "@types/three": "^0.149.0",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "autoprefixer": "^10.4.14",
+    "firebase-admin": "^11.10.1",
     "gltf-loader": "^1.0.0",
     "postcss": "^8.4.21",
     "react-scroll": "^1.8.9",
