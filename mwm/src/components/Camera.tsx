@@ -1,6 +1,4 @@
 import photoFrame from '../assets/photoframe.png';
-import admin from 'firebase-admin';
-const { createCanvas, loadImage } = require('canvas');
 
 // 웹 시작
 const MoziCamera = () => {
