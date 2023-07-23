@@ -17,6 +17,7 @@
     "@splinetool/runtime": "^0.9.290",
     "device-detector-js": "^3.0.3",
     "firebase": "^9.22.0",
+    "merge-images": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
