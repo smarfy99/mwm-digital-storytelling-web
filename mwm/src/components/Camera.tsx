@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-import photoFrame from '../assets/photoframe.png';
 import { storage } from '../firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
+import QRCode from 'qrcode';
 
 // 웹 시작
 const MoziCamera = () => {
   // mergedImageURL에 이미지 URL 저장
   const [mergedImageURL, setMergedImageURL] = useState<string | null>(null);
+  const mergedImageURLRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     // Firebase Storage에서 이미지 불러오기
@@ -15,18 +16,32 @@ const MoziCamera = () => {
     getDownloadURL(imageRef)
       .then((url) => {
         setMergedImageURL(url);
+
+        // 이미지 url을 input 창에 자동으로 입력
+        if (mergedImageURLRef.current) {
+          mergedImageURLRef.current.value = url;
+        }
       })
       .catch((error) => {
         console.error('이미지 불러오기 실패 : ', error);
       });
+
+      // QR 코드 생성
+      const qrCodeEl = document.getElementById('qrcode');
+      if (qrCodeEl && mergedImageURLRef.current) {
+        const qrcode = new QRCode(qrCodeEl);
+        qrcode.makeCode(mergedImageURLRef.current.value);
+      }
   }, []);
 
   return (
-    <div className="">
-      <div className="">
+    <div className="flex">
+      <div className="flex">
         {mergedImageURL ? <img src={mergedImageURL} alt="mergedImage" /> : <p>이미지 불러오는 중...</p>}
-        <input id="text" type="text"></input>
-        <div className="w-[300px] h-[300px] mt-7"></div>
+        <div className='hidden'>
+          <input ref={mergedImageURLRef} id="text" type="text"></input>
+        </div>
+        <div className="flex w-[300px] h-[300px] mt-7" id='qrcode'></div>
       </div>
     </div>
   );
