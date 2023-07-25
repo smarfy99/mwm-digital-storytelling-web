@@ -1,8 +1,8 @@
 import SpaceBack from '../components/SpaceBack';
-import MoziLanding from '../components/MoziLanding';
-import Introduction from '../components/Introduction';
-import Media from '../components/Media';
-import Coding from '../components/Coding';
+import MoziLanding from '../spline/MoziLanding';
+import Introduction from '../spline/Introduction';
+import Media from '../spline/Media';
+import Coding from '../spline/Coding';
 
 const Landing = () => {
   return (
