@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-const Sub = () => {
+const Sub1 = () => {
   const navigate = useNavigate();
 
   const handleVideoClick = () => {
@@ -24,4 +24,4 @@ const Sub = () => {
   );
 };
 
-export default Sub;
+export default Sub1;
