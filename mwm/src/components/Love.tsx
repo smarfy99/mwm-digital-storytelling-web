@@ -1,11 +1,23 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const Love = () => {
   const navigate = useNavigate();
+  const [clicked, setClicked] = useState<boolean>(false);
 
   const handleVideoClick = () => {
-    navigate('/camera');
+    setClicked(true);
   };
+
+  useEffect(() => {
+    // 7초 후, camera 컴포넌트로 이동
+    const timer = setTimeout(() => {
+      navigate('/camera');
+    }, 7000);
+
+    // timer unmount
+    return () => clearTimeout(timer);
+  }, [clicked, navigate]);
 
   return (
     <>
