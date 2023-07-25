@@ -7,7 +7,7 @@ const Smiling = () => {
   useEffect(() => {
     // 7초 후, sub 컴포넌트로 이동
     const timer = setTimeout(() => {
-      navigate('/sub');
+      navigate('/sub1');
     }, 7000);
 
     // timer unmount
