@@ -7,7 +7,7 @@ import Coding from '../components/Coding';
 const Landing = () => {
   return (
     <div className="flex flex-col">
-      <SpaceBack />
+      {/* <SpaceBack /> */}
       {/* <MoziLanding /> */}
       {/* <Introduction /> */}
       {/* <Media /> */}
