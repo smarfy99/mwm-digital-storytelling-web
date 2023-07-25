@@ -1,12 +1,13 @@
 import Archive from './pages/Archive';
-import Landing from './pages/Landing';
 import PhotoBooth from './pages/PhotoBooth';
+import Landing from './components/Landing';
 
 const App = () => {
   return (
     <>
       <div className='flex flex-col'>
         {/* <Landing /> */}
+        <Landing />
         <PhotoBooth />
         {/* <Archive /> */}
       </div>
