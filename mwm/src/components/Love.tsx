@@ -21,7 +21,7 @@ const Love = () => {
 
   return (
     <>
-      <div className="relative w-screen h-screen ">
+      <div className="relative w-screen h-screen bg-black">
         <video
           autoPlay
           onClick={handleVideoClick}
