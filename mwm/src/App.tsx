@@ -8,7 +8,7 @@ const App = () => {
       <div className='flex flex-col'>
         {/* <Landing /> */}
         <PhotoBooth />
-        <Archive />
+        {/* <Archive /> */}
       </div>
     </>
   );

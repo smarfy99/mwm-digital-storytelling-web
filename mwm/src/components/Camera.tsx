@@ -25,21 +25,38 @@ const MoziCamera = () => {
   useEffect(() => {
     if (qrCodeRef.current && mergedImageURL) {
       // QR 코드 생성
-      const qrCodeData = JSON.stringify({mergedImageURL});
+      const qrCodeData = JSON.stringify({ mergedImageURL });
       qrCodeRef.current.makeCode(qrCodeData);
     }
   }, [mergedImageURL]);
 
   return (
-    <div className="flex">
-      <div className="flex w-4/6">
-        {mergedImageURL ? <img src={mergedImageURL} alt="mergedImage" /> : <p>이미지 불러오는 중...</p>}
-      </div>
-      {/* <div className='hidden'>
-        <input ref={qrCodeRef} id="text" type='text' defaultValue={mergedImageURL || ''} />
-      </div> */}
-      <div className='flex w-[300px] h-[300px] m-7'>
-        <QRCode ref={qrCodeRef} value={mergedImageURL || ''} />
+    <div className="relative justify-center items-center">
+      <img src="../../public/mozi.png" alt="mozi" className="relative" />
+
+      {mergedImageURL ? (
+        <img src={mergedImageURL} alt="mergedImage" className="w-2/5 inset-y-72 inset-x-32 absolute" />
+      ) : (
+        <p>이미지 불러오는 중...</p>
+      )}
+
+      <div className="absolute top-72 right-60">
+        {mergedImageURL && (
+          <QRCode
+            ref={qrCodeRef}
+            value={mergedImageURL || ''}
+            size={300}
+            bgColor='transparent'
+            imageSettings={{
+              src: '../../public/mozii.png',
+              x: undefined,
+              y: undefined,
+              height: 100,
+              width: 200,
+              excavate: false,
+            }}
+          />
+        )}
       </div>
     </div>
   );
