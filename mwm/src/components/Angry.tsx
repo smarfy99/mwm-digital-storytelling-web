@@ -5,10 +5,10 @@ const Angry = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 7초 후, sub 컴포넌트로 이동
+    // 5초 후, sub 컴포넌트로 이동
     const timer = setTimeout(() => {
       navigate('/sub2');
-    }, 7000);
+    }, 5000);
 
     // timer unmount
     return () => clearTimeout(timer);
@@ -19,9 +19,9 @@ const Angry = () => {
       <div className="relative w-screen h-screen ">
         <video 
             autoPlay 
-            src="../../public/high.mp4" 
+            src="../../public/angry.mp4" 
             className="absolute top-0 left-0 object-cover" />
-        <source src="../../public/high.mp4" type="video/mp4" />
+        <source src="../../public/angry.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </div>
     </>

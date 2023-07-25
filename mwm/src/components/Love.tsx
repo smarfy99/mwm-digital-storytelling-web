@@ -10,10 +10,10 @@ const Love = () => {
   };
 
   useEffect(() => {
-    // 7초 후, camera 컴포넌트로 이동
+    // 5초 후, camera 컴포넌트로 이동
     const timer = setTimeout(() => {
       navigate('/camera');
-    }, 7000);
+    }, 5000);
 
     // timer unmount
     return () => clearTimeout(timer);
@@ -25,10 +25,10 @@ const Love = () => {
         <video
           autoPlay
           onClick={handleVideoClick}
-          src="../../public/high.mp4"
+          src="../../public/heart.mp4"
           className="absolute top-0 left-0 object-cover"
         />
-        <source src="../../public/high.mp4" type="video/mp4" />
+        <source src="../../public/heart.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </div>
     </>

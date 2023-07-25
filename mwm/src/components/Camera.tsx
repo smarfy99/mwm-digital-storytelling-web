@@ -44,6 +44,7 @@ const MoziCamera = () => {
         {mergedImageURL && (
           <QRCode
             ref={qrCodeRef}
+            level={'M'}
             value={mergedImageURL || ''}
             size={300}
             bgColor='transparent'
