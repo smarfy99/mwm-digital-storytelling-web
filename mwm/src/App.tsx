@@ -7,6 +7,8 @@ import Opening from './components/Opening';
 import Smiling from './components/Smiling';
 import Sub1 from './components/Sub1';
 import Angry from './components/Angry';
+import Sub2 from './components/Sub2';
+import Love from './components/Love';
 
 const App = () => {
   return (
@@ -18,7 +20,8 @@ const App = () => {
         <Route path="/camera" element={<MoziCamera />} />
         <Route path="/sub1" element={<Sub1 />} />
         <Route path="/angry" element={<Angry />} />
-        
+        <Route path="/sub2" element={<Sub2 />} />
+        <Route path="/love" element={<Love />} />
       </Routes>
     </>
   );
