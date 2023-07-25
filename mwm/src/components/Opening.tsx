@@ -5,7 +5,7 @@ const Opening = () => {
   const navigate = useNavigate();
 
   const handleVideoClick = () => {
-    navigate('/opening');
+    navigate('/smiling');
   };
 
   return (
@@ -13,7 +13,6 @@ const Opening = () => {
       <div className="relative w-screen h-screen ">
         <video
           autoPlay
-          loop
           onClick={handleVideoClick}
           src="../../public/high.mp4"
           className="absolute top-0 left-0 object-cover"

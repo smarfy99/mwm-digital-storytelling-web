@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Landing = () => {
+const Smiling = () => {
   const navigate = useNavigate();
   const [clicked, setClicked] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -66,4 +66,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Smiling;
