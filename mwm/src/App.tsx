@@ -6,6 +6,7 @@ import MoziCamera from './components/Camera';
 import Opening from './components/Opening';
 import Smiling from './components/Smiling';
 import Sub from './components/Sub';
+import Angry from './components/Angry';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/smiling" element={<Smiling />} />
         <Route path="/camera" element={<MoziCamera />} />
         <Route path="/sub" element={<Sub />} />
+        <Route path="/angry" element={<Angry />} />
       </Routes>
     </>
   );
