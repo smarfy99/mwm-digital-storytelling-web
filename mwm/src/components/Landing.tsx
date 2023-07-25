@@ -7,26 +7,11 @@ const Landing = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoClick = () => {
-    setClicked(true);
-    const videoElement = videoRef.current;
-    if (videoElement) {
-      if (videoElement.paused) {
-        videoElement.play();
-      } else {
-        videoElement.pause();
-      }
-    }
+    navigate('/opening');
   };
 
-  // useEffect(() => {
-  //   // 5초 후, camera 컴포넌트로 이동
-  //   const timer = setTimeout(() => {
-  //     navigate('/camera');
-  //   }, 5000);
 
-  //   // timer unmount
-  //   return () => clearTimeout(timer);
-  // }, [navigate]);
+
 
   useEffect(() => {
     // 비디오 클릭하고, 9초 후에 화면 이동
