@@ -34,27 +34,19 @@ const Smiling = () => {
 
     if (clicked) {
       timer = setTimeout(() => {
-        navigate('/camera');
-      }, 9000);
+        navigate('/sub');
+      }, 7000);
     }
 
     // timer unmount
     return () => clearTimeout(timer);
   }, [clicked, navigate]);
 
-  useEffect(() => {
-    //custom controls
-    const videoElement = videoRef.current;
-    if (videoElement) {
-      videoElement.controls = false; //hide default controls
-    }
-  });
 
   return (
     <>
       <div className="relative w-screen h-screen ">
         <video
-          ref={videoRef}
           onClick={handleVideoClick}
           src="../../public/high.mp4"
           className="absolute top-0 left-0 object-cover"
