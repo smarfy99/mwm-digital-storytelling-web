@@ -32,7 +32,7 @@ const MoziCamera = () => {
 
   return (
     <div className="relative justify-center items-center bg-black">
-      <img src="../../public/oziBack.png" alt="mozi" className="relative w-screen" />
+      <img src="/oziBack.png" alt="mozi" className="relative w-screen" />
 
       {mergedImageURL ? (
         <img src={mergedImageURL} alt="mergedImage" className="w-2/5 inset-y-72 inset-x-32 absolute" />
@@ -49,7 +49,7 @@ const MoziCamera = () => {
             size={300}
             bgColor='transparent'
             imageSettings={{
-              src: '../../public/mozii.png',
+              src: '/mozii.png',
               x: undefined,
               y: undefined,
               height: 100,
