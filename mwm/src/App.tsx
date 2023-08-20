@@ -9,12 +9,15 @@ import Sub1 from './components/Sub1';
 import Angry from './components/Angry';
 import Sub2 from './components/Sub2';
 import Love from './components/Love';
-import Input from './components/Input';
+// import Input from './components/Input';
+import { useEffect } from 'react';
 
 const App = () => {
+  useEffect(() => {
+
+  }, []);
   return (
     <>
-    <Archive />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/opening" element={<Opening />} />
