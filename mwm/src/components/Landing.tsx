@@ -14,10 +14,10 @@ const Landing = () => {
           autoPlay
           loop
           onClick={handleVideoClick}
-          src="../../public/landing.mp4"
+          src="/landing.mp4"
           className="absolute top-0 left-0 object-cover"
         />
-        <source src="../../public/landing.mp4" type="video/mp4" />
+        <source src="/landing.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </div>
     </>
