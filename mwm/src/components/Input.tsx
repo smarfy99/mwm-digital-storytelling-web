@@ -51,7 +51,7 @@ const Input = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex bg-black">
       <div className="flex flex-col justify-center items-center">
         <div className="flex text-white">당신이 생각하는 페르소나를</div>
         <div className="flex text-white">한 단어로 표현해주세요</div>

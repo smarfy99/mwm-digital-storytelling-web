@@ -9,10 +9,12 @@ import Sub1 from './components/Sub1';
 import Angry from './components/Angry';
 import Sub2 from './components/Sub2';
 import Love from './components/Love';
+import Input from './components/Input';
 
 const App = () => {
   return (
     <>
+    <Archive />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/opening" element={<Opening />} />
