@@ -34,7 +34,7 @@ dist-ssr
 ### Firebase Patch ###
 .runtimeconfig.json
 .firebase/
-firebase.ts
 .env
 
 firebase-service-account.json
+*/.env
