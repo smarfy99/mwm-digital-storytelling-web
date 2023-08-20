@@ -14,6 +14,7 @@ const Landing = () => {
           autoPlay
           loop
           onClick={handleVideoClick}
+          muted
           src="/landing.mp4"
           className="absolute top-0 left-0 object-cover"
         />
