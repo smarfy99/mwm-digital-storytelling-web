@@ -3,17 +3,17 @@ import { createGestureRecognizer } from './mediapipe';
 import { GestureRecognizer } from '@mediapipe/tasks-vision';
 import { storage } from './firebase';
 import { ref, getDownloadURL, uploadBytes, listAll } from 'firebase/storage';
+import mergeImages from 'merge-images';
 
-const WebcamCapture = ({cnt, setCnt}:{cnt:number,setCnt:Dispatch<SetStateAction<number>>}) => {
+const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetStateAction<number>> }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null); //렌더링되는 video태그
   const canvasRef = useRef<HTMLCanvasElement | null>(null); //렌더링되는 canvas태그
 
   const [gestureRecognizer, setGestureRecognizer] = useState<GestureRecognizer | undefined>(); //제스처 만드는 친구 실행상태
   const [webcamRunning, setWebcamRunning] = useState<boolean>(false); // 웹캠 실행상태
-  const [imageList, setImageList] = useState<String[]>([]);
+  const [imageList, setImageList] = useState<Blob[]>([]);
 
   const newStorage = storage;
-  const imageListRef = ref(newStorage, 'images/');
 
   useEffect(() => {
     const initializeCamera = async () => {
@@ -43,42 +43,79 @@ const WebcamCapture = ({cnt, setCnt}:{cnt:number,setCnt:Dispatch<SetStateAction<
   }, [gestureRecognizer]);
 
   //이미지 불러오기
-  useEffect(() => {
-    if (cnt >= 5) {
-      listAll(imageListRef).then((response) => {
-        response.items.forEach((item, index) => {
-          if (1 <= index && index < 5) {
-            getDownloadURL(item).then((url) => {
-              setImageList((prev) => [...prev, url]);
-            });
-          }
-        });
-      });
-    }
-  }, [cnt]);
+  // useEffect(() => {
+  //   if (cnt >= 5) {
+  //     listAll(imageListRef).then((response) => {
+  //       response.items.forEach((item, index) => {
+  //         if (1 <= index && index < 5) {
+  //           getDownloadURL(item).then((url) => {
+  //             setImageList((prev) => [...prev, url]);
+  //           });
+  //         }
+  //       });
+  //     });
+  //   }
+  // }, [cnt]);
 
   let lastVideoTime = -1;
   let results: any;
 
-  // const uploadImageToFirebaseStorage = async (blob: Blob, cnt: number) => {
-  //   try {
-  //     const imageRef = ref(newStorage, `images/image${cnt}.png`); // Firebase Storage의 루트 참조
-  //     uploadBytes(imageRef, blob).then((snapshot) => {
-  //       getDownloadURL(snapshot.ref).then((url) => {
-  //         setImageList((prev) => [...prev, url]);
-  //       });
-  //     });
-  //   } catch (error) {
-  //     console.error('Error uploading image:', error);
-  //     return null;
-  //   }
-  // };
-
   //이미지 합성
-  const mergeAndUploadImage = async (imageUrls: string[]) => {
-    try{
+  const mergeAndUploadImage = async (imageList: Blob[]) => {
+    const canvas = document.createElement('canvas');
 
+    //이미지를 blob에서 image 객체로 변환하여 크기 정보 얻기
+    const imageObjects = await Promise.all(
+      imageList.map(async (blob) => {
+        const image = new Image();
+        await new Promise((resolve) => {
+          image.onload = resolve;
+          image.src = URL.createObjectURL(blob);
+        });
+        return image;
+      }),
+    );
+
+    //이미지 크기 정보를 바탕으로 캔버스 크기 설정
+    canvas.width = imageObjects[0].width * 2;
+    canvas.height = imageObjects[0].height * 2;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      throw new Error('canvas 가져오기 실패');
     }
+
+    //이미지 2x2로 합성
+    await mergeImages(imageObjects, {
+      width: canvas.width,
+      height: canvas.height,
+    });
+
+    //PhotoFrame 이미지를 그림
+    const frameImage = new Image();
+    frameImage.src = 'photoFrame.png';
+    await frameImage.decode();
+
+    ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
+
+    //합성된 이미지를 Firebase Storage에 업로드
+    const storageRef = ref(newStorage, 'images/mergedImages.png');
+
+    //캔버스 내용을 Blob으로 변환
+    canvas.toBlob(async (blob) => {
+      if (blob) {
+        //이미지 업로드
+        await uploadBytes(storageRef, blob);
+
+        //업로드된 이미지의 다운로드 URL 얻기
+        const downloadURL = await getDownloadURL(storageRef);
+        console.log('Image URL: ', downloadURL);
+      }
+    });
+  };
+
+  if (cnt === 6) {
+    mergeAndUploadImage(imageList);
   }
 
   const predictWebcam = async () => {
@@ -93,7 +130,7 @@ const WebcamCapture = ({cnt, setCnt}:{cnt:number,setCnt:Dispatch<SetStateAction<
 
           if (canvas && video) {
             const canvasContext = canvas.getContext('2d');
-            if (canvasContext&&cnt>1&&cnt<6) {
+            if (canvasContext && cnt > 1 && cnt < 6) {
               canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height); //canvas에 capture
               const imageBlob = await new Promise<Blob | null>((resolve) => {
                 canvas.toBlob((blob) => {
@@ -102,13 +139,11 @@ const WebcamCapture = ({cnt, setCnt}:{cnt:number,setCnt:Dispatch<SetStateAction<
               });
               //여기서 imageBlob 사용가능
               if (imageBlob) {
-                //이미지 Blob을 파이어베이스 스토리지에 업로드
-                await uploadImageToFirebaseStorage(imageBlob, cnt);
-                //imageURL을 활용한 추가 작업 수행 가능
+                setImageList(() => [...imageList, imageBlob]); //imageBlob 추가
               }
             }
           }
-          setCnt((prev:number)=>prev+1);
+          setCnt((prev: number) => prev + 1);
         }
       }
       if (webcamRunning) {
