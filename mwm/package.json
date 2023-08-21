@@ -15,6 +15,7 @@
     "@splinetool/r3f-spline": "^1.0.2",
     "@splinetool/react-spline": "^2.2.6",
     "@splinetool/runtime": "^0.9.290",
+    "canvas": "^2.11.2",
     "device-detector-js": "^3.0.3",
     "firebase": "^9.22.0",
     "merge-images": "^2.0.0",
