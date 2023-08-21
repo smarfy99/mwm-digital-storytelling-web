@@ -43,19 +43,20 @@ const WebcamCapture = () => {
     }
   }, [gestureRecognizer]);
 
+  //이미지 불러오기
   useEffect(() => {
-    if(cnt >= 5){
+    if (cnt >= 5) {
       listAll(imageListRef).then((response) => {
-        response.items.forEach((item,index) => {
-          if( 1 <= index && index < 5){
+        response.items.forEach((item, index) => {
+          if (1 <= index && index < 5) {
             getDownloadURL(item).then((url) => {
               setImageList((prev) => [...prev, url]);
-            })
+            });
           }
-        })
-      })
+        });
+      });
     }
-  }, [cnt])
+  }, [cnt]);
 
   let lastVideoTime = -1;
   let results: any;
@@ -73,6 +74,9 @@ const WebcamCapture = () => {
       return null;
     }
   };
+
+  //이미지 합성
+  
 
   const predictWebcam = async () => {
     if (videoRef.current && gestureRecognizer) {
@@ -110,8 +114,6 @@ const WebcamCapture = () => {
       }
     }
   };
-
-
 
   return (
     <div>
