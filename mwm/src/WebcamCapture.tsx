@@ -99,7 +99,7 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
     ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
 
     //합성된 이미지를 Firebase Storage에 업로드
-    const storageRef = ref(newStorage, 'images/mergedImages.png');
+    const storageRef = ref(newStorage, 'images/mergedImage.jpg');
 
     //캔버스 내용을 Blob으로 변환
     canvas.toBlob(async (blob) => {
@@ -114,7 +114,7 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
     });
   };
 
-  if (cnt === 6) {
+  if (cnt === 4) {
     mergeAndUploadImage(imageList);
   }
 
