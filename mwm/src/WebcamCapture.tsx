@@ -118,32 +118,43 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
     mergeAndUploadImage(imageList);
   }
 
+  //이전 프레임의 주먹 상태를 boolean으로
+  let lastStatus: boolean | undefined = undefined;
+
   const predictWebcam = async () => {
     if (videoRef.current && gestureRecognizer) {
       let nowInMs = Date.now();
       if (videoRef.current.currentTime !== lastVideoTime) {
         lastVideoTime = videoRef.current.currentTime;
         results = gestureRecognizer.recognizeForVideo(videoRef.current, nowInMs);
-        if (results && results?.gestures?.[0]?.[0]?.categoryName === 'Closed_Fist') {
-          const canvas = canvasRef.current;
-          const video = videoRef.current;
 
-          if (canvas && video) {
-            const canvasContext = canvas.getContext('2d');
-            if (canvasContext && cnt > 1 && cnt < 6) {
-              canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height); //canvas에 capture
-              const imageBlob = await new Promise<Blob | null>((resolve) => {
-                canvas.toBlob((blob) => {
-                  resolve(blob);
+        const currentStatus = results?.gestures?.[0]?.[0]?.categoryName === 'Closed_Fist';
+
+        //주먹 상태가 바뀌었을 때만 실행
+        if (currentStatus !== lastStatus) {
+          lastStatus = currentStatus;
+
+          if (currentStatus) {
+            const canvas = canvasRef.current;
+            const video = videoRef.current;
+
+            if (canvas && video) {
+              const canvasContext = canvas.getContext('2d');
+              if (canvasContext && cnt > 1 && cnt < 6) {
+                canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height); //canvas에 capture
+                const imageBlob = await new Promise<Blob | null>((resolve) => {
+                  canvas.toBlob((blob) => {
+                    resolve(blob);
+                  });
                 });
-              });
-              //여기서 imageBlob 사용가능
-              if (imageBlob) {
-                setImageList(() => [...imageList, imageBlob]); //imageBlob 추가
+                //여기서 imageBlob 사용가능
+                if (imageBlob) {
+                  setImageList(() => [...imageList, imageBlob]); //imageBlob 추가
+                }
               }
             }
+            setCnt((prev: number) => prev + 1);
           }
-          setCnt((prev: number) => prev + 1);
         }
       }
       if (webcamRunning) {
@@ -154,7 +165,7 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
 
   return (
     <div>
-      <video ref={videoRef} autoPlay style={{transform: 'scaleX(-1)'}}></video>
+      <video ref={videoRef} autoPlay style={{ transform: 'scaleX(-1)' }}></video>
       <canvas ref={canvasRef}></canvas>
     </div>
   );
