@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const Smiling = () => {
   const [videoSrc, setVideoSrc] = useState('/smile.mp4');
+
   useEffect(() => {
     // 5초 후, sub 컴포넌트로 이동
     const timer = setTimeout(() => {
