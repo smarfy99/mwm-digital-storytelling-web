@@ -32,4 +32,5 @@ const decideComponent=(cnt:number)=>{
   if(cnt===2) return <Smiling/>
   if(cnt===3) return <Angry/>
   if(cnt===4) return <Love/>
+  if(cnt===5) return <MoziCamera/>
 }
