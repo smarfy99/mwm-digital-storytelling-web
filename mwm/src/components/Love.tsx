@@ -4,15 +4,15 @@ import { useState, useEffect } from 'react';
 const Love = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // 5초 후, sub 컴포넌트로 이동
-    const timer = setTimeout(() => {
-      navigate('/camera');
-    }, 9000);
+  // useEffect(() => {
+  //   // 5초 후, sub 컴포넌트로 이동
+  //   const timer = setTimeout(() => {
+  //     navigate('/camera');
+  //   }, 9000);
 
-    // timer unmount
-    return () => clearTimeout(timer);
-  }, [navigate]);
+  //   // timer unmount
+  //   return () => clearTimeout(timer);
+  // }, [navigate]);
   return (
     <>
       <div className="relative w-screen h-screen bg-black">

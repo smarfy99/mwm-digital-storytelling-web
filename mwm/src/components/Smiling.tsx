@@ -6,7 +6,7 @@ const Smiling = () => {
   useEffect(() => {
     // 5초 후, sub 컴포넌트로 이동
     const timer = setTimeout(() => {
-      setVideoSrc('/sub1.mp4');
+      setVideoSrc('/sub.mp4');
     }, 5000);
 
     // timer unmount

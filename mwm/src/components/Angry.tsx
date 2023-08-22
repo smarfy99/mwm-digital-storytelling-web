@@ -6,7 +6,7 @@ const Angry = () => {
   useEffect(() => {
     // 5초 후, sub 컴포넌트로 이동
     const timer = setTimeout(() => {
-      setVideoSrc('/sub2');
+      setVideoSrc('/sub.mp4');
     }, 5000);
 
     // timer unmount
