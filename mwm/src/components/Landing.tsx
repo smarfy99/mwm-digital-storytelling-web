@@ -1,12 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
-  const navigate = useNavigate();
-
-  const handleVideoClick = () => {
-    navigate('/opening');
-  };
-
   return (
     <>
       <div className="relative w-screen h-screen bg-black">
