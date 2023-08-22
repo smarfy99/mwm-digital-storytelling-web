@@ -1,5 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Archive from './pages/Archive';
 import Landing from './components/Landing';
@@ -19,18 +18,18 @@ const App = () => {
   return (
     <div>
       {decideComponent(cnt)}
-      <WebcamCapture cnt={cnt} setCnt={setCnt}/>
+      <WebcamCapture cnt={cnt} setCnt={setCnt} />
     </div>
   );
 };
 
 export default App;
 
-const decideComponent=(cnt:number)=>{
-  if(cnt===0) return <Landing/>
-  if(cnt===1) return <Opening/>
-  if(cnt===2) return <Smiling/>
-  if(cnt===3) return <Angry/>
-  if(cnt===4) return <Love/>
-  if(cnt===5) return <MoziCamera/>
-}
+const decideComponent = (cnt: number) => {
+  if (cnt === 0) return <Landing />;
+  if (cnt === 1) return <Opening />;
+  if (cnt === 2) return <Smiling />;
+  if (cnt === 3) return <Angry />;
+  if (cnt === 4) return <Love />;
+  if (cnt === 5) return <MoziCamera />;
+};
