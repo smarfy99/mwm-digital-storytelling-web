@@ -154,7 +154,7 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
 
   return (
     <div>
-      <video ref={videoRef} autoPlay></video>
+      <video ref={videoRef} autoPlay style={{transform: 'scaleX(-1)'}}></video>
       <canvas ref={canvasRef}></canvas>
     </div>
   );
