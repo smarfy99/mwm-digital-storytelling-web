@@ -1,24 +1,29 @@
-import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import MoziCamera from './Camera';
 
 const Love = () => {
-  const navigate = useNavigate();
+  const [showCamera, setShowCamera] = useState(false);
 
-  // useEffect(() => {
-  //   // 5초 후, sub 컴포넌트로 이동
-  //   const timer = setTimeout(() => {
-  //     navigate('/camera');
-  //   }, 9000);
+  useEffect(() => {
+    // 5초 후, sub 컴포넌트로 이동
+    const timer = setTimeout(() => {
+      setShowCamera(true);
+    }, 9000);
 
-  //   // timer unmount
-  //   return () => clearTimeout(timer);
-  // }, [navigate]);
+    // timer unmount
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <>
       <div className="relative w-screen h-screen bg-black">
-        <video autoPlay src="/heart.mp4" className="absolute top-0 left-0 object-cover" />
-        <source src="/heart.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+        {showCamera ? (
+          <MoziCamera />
+        ) : (
+          <>
+            <video autoPlay src="/heart.mp4" className="absolute top-0 left-0 object-cover" />
+            <source src="/heart.mp4" type="video/mp4" />
+          </>
+        )}
       </div>
     </>
   );
