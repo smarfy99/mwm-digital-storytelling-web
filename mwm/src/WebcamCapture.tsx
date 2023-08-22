@@ -2,7 +2,7 @@ import { SetStateAction, useEffect, useRef, useState, Dispatch } from 'react';
 import { createGestureRecognizer } from './mediapipe';
 import { GestureRecognizer } from '@mediapipe/tasks-vision';
 import { storage } from './firebase';
-import { ref, getDownloadURL, uploadBytes, listAll } from 'firebase/storage';
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import mergeImages from 'merge-images';
 
 const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetStateAction<number>> }) => {
