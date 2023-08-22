@@ -63,7 +63,7 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
   //이미지 합성
   const mergeAndUploadImage = async (imageList: Blob[]) => {
     const canvas = document.createElement('canvas');
-
+    console.log("이미지 합성");
     //이미지를 blob에서 image 객체로 변환하여 크기 정보 얻기
     const imageObjects = await Promise.all(
       imageList.map(async (blob) => {
@@ -96,6 +96,7 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
     frameImage.src = 'photoFrame.png';
     await frameImage.decode();
 
+    ctx.scale(-1, 1); //이미지를 좌우반전
     ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
 
     //합성된 이미지를 Firebase Storage에 업로드
@@ -114,7 +115,7 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
     });
   };
 
-  if (cnt === 4) {
+  if (cnt === 5) {
     mergeAndUploadImage(imageList);
   }
 
@@ -149,6 +150,7 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
                 });
                 //여기서 imageBlob 사용가능
                 if (imageBlob) {
+                  console.log(imageBlob);
                   setImageList(() => [...imageList, imageBlob]); //imageBlob 추가
                 }
               }

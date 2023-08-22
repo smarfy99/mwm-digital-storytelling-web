@@ -11,7 +11,8 @@ const MoziCamera = () => {
 
   useEffect(() => {
     // Firebase Storage에서 이미지 불러오기
-    const imageRef = ref(storage, 'images/mergedImage.jpg');
+    const newStorage = storage;
+    const imageRef = ref(newStorage, 'images/mergedImage.jpg');
 
     getDownloadURL(imageRef)
       .then((url) => {
