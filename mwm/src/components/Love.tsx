@@ -20,7 +20,7 @@ const Love = () => {
           <MoziCamera />
         ) : (
           <>
-            <video autoPlay src="/heart.mp4" className="absolute top-0 left-0 object-cover" />
+            <video autoPlay preload="auto" src="/heart.mp4" className="absolute top-0 left-0 object-cover" />
             <source src="/heart.mp4" type="video/mp4" />
           </>
         )}
