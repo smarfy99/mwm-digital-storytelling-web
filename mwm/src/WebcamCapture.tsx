@@ -126,8 +126,8 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
       const canvas = document.createElement('canvas');
       const video = videoRef.current!;
       // const canvas = document.createElement('canvas');
-      canvas.width = videoRef.current?.videoWidth || 640;
-      canvas.height = videoRef.current?.videoHeight || 480;
+      canvas.width = videoRef.current?.videoWidth || 900;
+      canvas.height = videoRef.current?.videoHeight || 600;
 
       const ctx = canvas!.getContext('2d');
       if (ctx) {

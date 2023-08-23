@@ -15,7 +15,7 @@ const Love = () => {
   }, []);
   return (
     <>
-      <div className="relative w-screen h-screen bg-black">
+      <div className="relative w-screen h-screen bg-white">
         {showCamera ? (
           <MoziCamera />
         ) : (

@@ -15,7 +15,7 @@ const Smiling = () => {
 
   return (
     <>
-      <div className="relative w-screen h-screen bg-black">
+      <div className="relative w-screen h-screen bg-white">
         <video autoPlay src={videoSrc} className="absolute top-0 left-0 object-cover" />
         <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.

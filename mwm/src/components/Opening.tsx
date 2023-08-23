@@ -1,7 +1,7 @@
 const Opening = () => {
   return (
     <>
-      <div className="relative w-screen h-screen bg-black">
+      <div className="relative w-screen h-screen bg-white">
         <video
           autoPlay
           src="/opening.mp4"

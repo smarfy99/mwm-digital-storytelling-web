@@ -32,7 +32,7 @@ const MoziCamera = () => {
   }, [mergedImageURL]);
 
   return (
-    <div className="relative justify-center items-center bg-black">
+    <div className="relative justify-center items-center bg-white">
       <img src="/oziBack.png" alt="mozi" className="relative w-screen" />
 
       {mergedImageURL ? (
