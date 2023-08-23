@@ -89,6 +89,10 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
     let y = 0;
     imageObjects.forEach((image) => {
       ctx.drawImage(image, x, y, image.width, image.height);
+      ctx.save();
+      ctx.scale(-1, 1);
+      ctx.drawImage(image, -x - image.width, y, image.width, image.height);
+      ctx.restore(); // 이전 캔버스 상태로 복원
       x += image.width;
       if (x >= canvas.width) {
         x = 0;
