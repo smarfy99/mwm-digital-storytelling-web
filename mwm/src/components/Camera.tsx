@@ -2,17 +2,20 @@ import { useState, useEffect, useRef } from 'react';
 import { storage } from '../firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
 import QRCode from 'qrcode.react';
+import { useRecoilValue } from 'recoil';
+import { time } from '../atom/currentTime';
 
 // 웹 시작
 const MoziCamera = () => {
   // mergedImageURL에 이미지 URL 저장
   const [mergedImageURL, setMergedImageURL] = useState<string | null>(null);
   const qrCodeRef = useRef<any>(null);
+  const currentTime=useRecoilValue(time);
 
   useEffect(() => {
     // Firebase Storage에서 이미지 불러오기
     const newStorage = storage;
-    const imageRef = ref(newStorage, 'images/mergedImage.jpg');
+    const imageRef = ref(newStorage, `images/mergedImage${currentTime}.jpg`);
 
     getDownloadURL(imageRef)
       .then((url) => {

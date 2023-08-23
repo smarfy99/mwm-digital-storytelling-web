@@ -3,6 +3,8 @@ import { createGestureRecognizer } from './mediapipe';
 import { GestureRecognizer } from '@mediapipe/tasks-vision';
 import { storage } from './firebase';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
+import {  useRecoilValue } from 'recoil';
+import { time } from './atom/currentTime';
 
 export enum PAGE {
   LANDING = 0,
@@ -21,7 +23,8 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
   const newStorage = storage;
   const cntRef = useRef<number>(cnt);
   const timerRef = useRef<any>(null);
-
+const currentTime=useRecoilValue(time)
+console.log(currentTime)
   useEffect(() => {
     const initializeCamera = async () => {
       //웹캠 켜고, 제스쳐 만드는 라이브러리 initialize
@@ -100,7 +103,7 @@ if(imageList.length===4){
         ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
 
         // 합성된 이미지를 Firebase Storage에 업로드
-        const storageRef = ref(newStorage, 'images/mergedImage.jpg');
+        const storageRef = ref(newStorage, `images/mergedImage${currentTime}.jpg`); 
         canvas.toBlob(
           async (blob) => {
             if (blob) {
