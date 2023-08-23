@@ -10,7 +10,7 @@ const MoziCamera = () => {
   // mergedImageURL에 이미지 URL 저장
   const [mergedImageURL, setMergedImageURL] = useState<string | null>(null);
   const qrCodeRef = useRef<any>(null);
-  const currentTime=useRecoilValue(time);
+  const currentTime = useRecoilValue(time);
 
   useEffect(() => {
     // Firebase Storage에서 이미지 불러오기
@@ -34,6 +34,14 @@ const MoziCamera = () => {
     }
   }, [mergedImageURL]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.location.href = '/';
+    }, 20000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="relative justify-center items-center bg-white">
       <img src="/oziBack.png" alt="mozi" className="relative w-screen" />
@@ -41,7 +49,7 @@ const MoziCamera = () => {
       {mergedImageURL ? (
         <img src={mergedImageURL} alt="mergedImage" className="w-2/5 inset-y-72 inset-x-32 absolute" />
       ) : (
-        <p>이미지 불러오는 중...</p>
+        <p>image loading</p>
       )}
 
       <div className="absolute top-72 right-60">
@@ -51,7 +59,7 @@ const MoziCamera = () => {
             level={'M'}
             value={mergedImageURL || ''}
             size={300}
-            bgColor='transparent'
+            bgColor="transparent"
             imageSettings={{
               src: '/mozii.png',
               x: undefined,
