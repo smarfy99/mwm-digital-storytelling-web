@@ -125,7 +125,7 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
     });
   };
 
-  const takeWebcamPhotoAndMerge = async () => {
+  const takePhoto = async () => {
     if (webcamRunning) {
       const canvas = document.createElement('canvas');
       const video = videoRef.current!;
@@ -148,6 +148,32 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
         }
       }
     }
+  };
+
+  const takeWebcamPhotoAndMerge = async () => {
+    await takePhoto();
+    //   if (webcamRunning) {
+    //     const canvas = document.createElement('canvas');
+    //     const video = videoRef.current!;
+    //     // const canvas = document.createElement('canvas');
+    //     canvas.width = videoRef.current?.videoWidth || 900;
+    //     canvas.height = videoRef.current?.videoHeight || 600;
+
+    //     const ctx = canvas!.getContext('2d');
+    //     if (ctx) {
+    //       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    //       const imageBlob = await new Promise<Blob | null>((resolve) => {
+    //         canvas.toBlob((blob) => {
+    //           resolve(blob);
+    //         });
+    //       });
+
+    //       if (imageBlob) {
+    //         console.log('last', imageBlob);
+    //         mergeAndUploadImage([...imageList, imageBlob]);
+    //       }
+    //     }
+    //   }
   };
 
   //이전 프레임의 주먹 상태를 boolean으로
