@@ -24,7 +24,7 @@ const MoziCamera = () => {
       .catch((error) => {
         console.error('이미지 불러오기 실패 : ', error);
       });
-  }, []);
+  }, [currentTime]);
 
   useEffect(() => {
     if (qrCodeRef.current && mergedImageURL) {
@@ -37,7 +37,7 @@ const MoziCamera = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       window.location.href = '/';
-    }, 20000);
+    }, 30000);
 
     return () => clearTimeout(timer);
   }, []);

@@ -3,7 +3,7 @@ import { createGestureRecognizer } from './mediapipe';
 import { GestureRecognizer } from '@mediapipe/tasks-vision';
 import { storage } from './firebase';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
-import {  useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { time } from './atom/currentTime';
 
 export enum PAGE {
@@ -20,11 +20,13 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
   const [gestureRecognizer, setGestureRecognizer] = useState<GestureRecognizer | undefined>(); //제스처 만드는 친구 실행상태
   const [webcamRunning, setWebcamRunning] = useState<boolean>(false); // 웹캠 실행상태
   const [imageList, setImageList] = useState<Blob[]>([]);
+  const [mergedImageURL, setMergedImageURL] = useState<string>();
+  
   const newStorage = storage;
   const cntRef = useRef<number>(cnt);
   const timerRef = useRef<any>(null);
-const currentTime=useRecoilValue(time)
-console.log(currentTime)
+  const currentTime = useRecoilValue(time);
+  console.log(currentTime);
   useEffect(() => {
     const initializeCamera = async () => {
       //웹캠 켜고, 제스쳐 만드는 라이브러리 initialize
@@ -63,18 +65,18 @@ console.log(currentTime)
 
   useEffect(() => {
     cntRef.current = cnt;
-    if(cnt===PAGE.LOVE){
-      setTimeout(()=>{
+    if (cnt === PAGE.LOVE) {
+      setTimeout(() => {
         takePhoto();
-      },8000)
+      }, 8000);
     }
   }, [cnt]);
 
-  useEffect(()=>{
-if(imageList.length===4){
-  mergeAndUploadImage();
-}
-  },[imageList])
+  useEffect(() => {
+    if (imageList.length === 4) {
+      mergeAndUploadImage();
+    }
+  }, [imageList]);
 
   let lastVideoTime = -1;
   let results: any;
@@ -103,13 +105,20 @@ if(imageList.length===4){
         ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
 
         // 합성된 이미지를 Firebase Storage에 업로드
-        const storageRef = ref(newStorage, `images/mergedImage${currentTime}.jpg`); 
+        const storageRef = ref(newStorage, `images/mergedImage${currentTime}.jpg`);
         canvas.toBlob(
           async (blob) => {
             if (blob) {
-              await uploadBytes(storageRef, blob);
-              const downloadURL = await getDownloadURL(storageRef);
-              console.log('Image URL:', downloadURL);
+              try {
+                await uploadBytes(storageRef, blob);
+                const downloadURL = await getDownloadURL(storageRef);
+                console.log('Image URL:', downloadURL);
+
+                //이미지 업로드 후 이미지 불러오기
+                setMergedImageURL(downloadURL);
+              } catch (err) {
+                console.log(err);
+              }
             }
             resolve();
           },
@@ -125,8 +134,8 @@ if(imageList.length===4){
       const canvas = document.createElement('canvas');
       const video = videoRef.current!;
       // const canvas = document.createElement('canvas');
-      canvas.width = videoRef.current?.videoWidth || 900;
-      canvas.height = videoRef.current?.videoHeight || 600;
+      canvas.width = videoRef.current?.videoWidth || 1280;
+      canvas.height = videoRef.current?.videoHeight || 960;
 
       const ctx = canvas!.getContext('2d');
       if (ctx) {
@@ -141,9 +150,9 @@ if(imageList.length===4){
     }
   };
 
-  const takeWebcamPhotoAndMerge = async () => {
-    await takePhoto();
-  };
+  // const takeWebcamPhotoAndMerge = async () => {
+  //   await takePhoto();
+  // };
 
   //이전 프레임의 주먹 상태를 boolean으로
   let lastStatus: boolean | undefined = undefined;
@@ -164,10 +173,10 @@ if(imageList.length===4){
               timerRef.current = setTimeout(async () => {
                 await takePhoto();
                 timerRef.current = null;
-              }, 5000);
+              }, 6000);
               setCnt((prev: number) => prev + 1);
             }
-            if ((cntRef.current === PAGE.SMILING||cntRef.current===PAGE.ANGRY) && timerRef.current === null) {
+            if ((cntRef.current === PAGE.SMILING || cntRef.current === PAGE.ANGRY) && timerRef.current === null) {
               timerRef.current = setTimeout(async () => {
                 await takePhoto();
                 timerRef.current = null;
@@ -175,7 +184,8 @@ if(imageList.length===4){
               setCnt((prev: number) => prev + 1);
             }
           }
-          if (currentStatus && timerRef.current === null&&cntRef.current!=PAGE.LOVE) setCnt((prev: number) => prev + 1);
+          if (currentStatus && timerRef.current === null && cntRef.current != PAGE.LOVE)
+            setCnt((prev: number) => prev + 1);
         }
       }
       if (webcamRunning) {
