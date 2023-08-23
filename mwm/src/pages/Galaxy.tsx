@@ -1,4 +1,4 @@
-import SpaceBack from "../components/SpaceBack";
+import SpaceBack from "../spline/SpaceBack";
 import Planet2 from "../spline/Planet2";
 
 const Galaxy = () => {

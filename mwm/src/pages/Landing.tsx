@@ -1,4 +1,4 @@
-import SpaceBack from '../components/SpaceBack';
+import SpaceBack from '../spline/SpaceBack';
 import MoziLanding from '../spline/MoziLanding';
 import Introduction from '../spline/Introduction';
 import Media from '../spline/Media';

@@ -1,5 +1,5 @@
-import Input from '../components/Input';
-import SpaceBack from '../components/SpaceBack';
+import Input from '../spline/Input';
+import SpaceBack from '../spline/SpaceBack';
 
 const Archive = () => {
   return (
