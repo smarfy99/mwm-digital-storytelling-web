@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Landing from './components/Landing';
 import Opening from './components/Opening';
@@ -9,7 +9,14 @@ import WebcamCapture from './WebcamCapture';
 
 const App = () => {
   const [cnt, setCnt] = useState(0);
+  useEffect(()=>{
+    const image=['/angry.mp4','/heart.mp4','high.mp4','landing.mp4','opening.mp4','smile.mp4','sub.mp4']
+    image.map(img=>{
+      const image=new Image();
+      image.src=img;
+    })
 
+  },[])
   return (
       <div>
         {decideComponent(cnt)}
