@@ -210,6 +210,8 @@ const imageSetting = (ctx: CanvasRenderingContext2D, imageObjects: HTMLImageElem
   let y = 0;
   const canvas = document.createElement('canvas');
   //이미지 크기 정보를 바탕으로 캔버스 크기 설정
+  // imageObjects[0].width = 500;
+  // imageObjects[0].height = 200;
   canvas.width = imageObjects[0].width * 2;
   canvas.height = imageObjects[0].height * 2;
   imageObjects.forEach((image) => {
