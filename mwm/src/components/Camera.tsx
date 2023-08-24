@@ -5,7 +5,7 @@ import QRCode from 'qrcode.react';
 import { useRecoilValue } from 'recoil';
 import { time } from '../atom/currentTime';
 import { done } from '../atom/currentTime';
-
+import Last from './Last';
 // 웹 시작
 const MoziCamera = () => {
   // mergedImageURL에 이미지 URL 저장
@@ -21,7 +21,7 @@ const MoziCamera = () => {
       const imageRef = ref(newStorage, `images/mergedImage${currentTime}.jpg`);
 
       try {
-        if(doneValue){
+        if (doneValue) {
           const url = await getDownloadURL(imageRef);
           setMergedImageURL(url);
         }
@@ -40,43 +40,53 @@ const MoziCamera = () => {
     }
   }, [mergedImageURL]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      window.location.href = '/';
-    }, 50000);
+  const [page, setPage] = useState(true);
 
+  useEffect(() => {
+    // 5초 후, sub 컴포넌트로 이동
+    const timer = setTimeout(() => {
+      setPage(false);
+    }, 30000);
+
+    // timer unmount
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="relative justify-center items-center bg-white">
-      <img src="/oziBack.png" alt="mozi" className="relative w-screen" />
+    <div>
+      {page ? (
+        <div className="relative justify-center items-center bg-white">
+          <img src="/oziBack.png" alt="mozi" className="relative w-screen" />
 
-      {mergedImageURL ? (
-        <img src={mergedImageURL} alt="mergedImage" className="w-2/5 inset-y-72 inset-x-32 absolute" />
+          {mergedImageURL ? (
+            <img src={mergedImageURL} alt="mergedImage" className="w-2/5 inset-y-72 inset-x-32 absolute" />
+          ) : (
+            <p>image loading</p>
+          )}
+
+          <div className="absolute top-72 right-60">
+            {mergedImageURL && (
+              <QRCode
+                ref={qrCodeRef}
+                level={'M'}
+                value={mergedImageURL || ''}
+                size={300}
+                bgColor="transparent"
+                imageSettings={{
+                  src: '/mozii.png',
+                  x: undefined,
+                  y: undefined,
+                  height: 100,
+                  width: 200,
+                  excavate: false,
+                }}
+              />
+            )}
+          </div>
+        </div>
       ) : (
-        <p>image loading</p>
+        <Last />
       )}
-
-      <div className="absolute top-72 right-60">
-        {mergedImageURL && (
-          <QRCode
-            ref={qrCodeRef}
-            level={'M'}
-            value={mergedImageURL || ''}
-            size={300}
-            bgColor="transparent"
-            imageSettings={{
-              src: '/mozii.png',
-              x: undefined,
-              y: undefined,
-              height: 100,
-              width: 200,
-              excavate: false,
-            }}
-          />
-        )}
-      </div>
     </div>
   );
 };
