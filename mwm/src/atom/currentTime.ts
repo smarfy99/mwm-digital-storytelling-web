@@ -4,6 +4,11 @@ export const time = atom({
   default: getCurrentDateTime(),
 });
 
+export const done = atom({
+  key: 'done',
+  default: false,
+});
+
 export function getCurrentDateTime() {
   const now = new Date();
 

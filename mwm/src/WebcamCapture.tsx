@@ -5,6 +5,8 @@ import { storage } from './firebase';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { useRecoilValue } from 'recoil';
 import { time } from './atom/currentTime';
+import { done } from './atom/currentTime';
+import { useSetRecoilState } from 'recoil';
 
 export enum PAGE {
   LANDING = 0,
@@ -21,7 +23,8 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
   const [webcamRunning, setWebcamRunning] = useState<boolean>(false); // 웹캠 실행상태
   const [imageList, setImageList] = useState<Blob[]>([]);
   const [mergedImageURL, setMergedImageURL] = useState<string>();
-  
+
+  const setDone = useSetRecoilState(done);
   const newStorage = storage;
   const cntRef = useRef<number>(cnt);
   const timerRef = useRef<any>(null);
@@ -111,11 +114,12 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
             if (blob) {
               try {
                 await uploadBytes(storageRef, blob);
+
                 const downloadURL = await getDownloadURL(storageRef);
                 console.log('Image URL:', downloadURL);
 
                 //이미지 업로드 후 이미지 불러오기
-                setMergedImageURL(downloadURL);
+                setDone(true);
               } catch (err) {
                 console.log(err);
               }
@@ -205,15 +209,35 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
 export default WebcamCapture;
 
 const imageSetting = (ctx: CanvasRenderingContext2D, imageObjects: HTMLImageElement[]) => {
+  const canvas = document.createElement('canvas');
+  // 이미지를 16:9 비율로 리사이즈하여 배치
+  const targetHeight = canvas.height / 2; // 2열로 배치하므로 절반의 너비
+  const targetWidth = (targetHeight * 9) / 16; // 16:9 비율 계산
+
+  const resizeImage = (image: HTMLImageElement, width: number, height: number): HTMLImageElement => {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+
+    if (ctx) {
+      ctx.drawImage(image, 0, 0, width, height);
+    }
+
+    const resizedImage = new Image();
+    resizedImage.src = canvas.toDataURL('image/jpeg');
+    return resizedImage;
+  };
+
   // 이미지 2x2로 배치
   let x = 0;
   let y = 0;
-  const canvas = document.createElement('canvas');
   //이미지 크기 정보를 바탕으로 캔버스 크기 설정
-  canvas.width = imageObjects[0].width * 2;
-  canvas.height = imageObjects[0].height * 2;
+  // canvas.width = imageObjects[0].width * 2;
+  // canvas.height = imageObjects[0].height * 2;
   imageObjects.forEach((image) => {
-    ctx.drawImage(image, x, y, image.width, image.height);
+    const resizedImage = resizeImage(image, targetWidth, targetHeight);
+    ctx.drawImage(resizedImage, x, y, targetWidth, targetHeight);
     ctx.save();
     ctx.scale(-1, 1);
     ctx.drawImage(image, -x - image.width, y, image.width, image.height);
@@ -224,6 +248,7 @@ const imageSetting = (ctx: CanvasRenderingContext2D, imageObjects: HTMLImageElem
       y += image.height;
     }
   });
+
   return imageObjects;
 };
 
