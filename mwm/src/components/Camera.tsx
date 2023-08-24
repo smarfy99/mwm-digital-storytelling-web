@@ -43,7 +43,7 @@ const MoziCamera = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       window.location.href = '/';
-    }, 30000);
+    }, 50000);
 
     return () => clearTimeout(timer);
   }, []);

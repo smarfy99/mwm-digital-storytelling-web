@@ -235,20 +235,19 @@ const imageSetting = (ctx: CanvasRenderingContext2D, imageObjects: HTMLImageElem
   //이미지 크기 정보를 바탕으로 캔버스 크기 설정
   // canvas.width = imageObjects[0].width * 2;
   // canvas.height = imageObjects[0].height * 2;
-  imageObjects.forEach((image) => {
+  imageObjects.forEach((image, index) => {
     const resizedImage = resizeImage(image, targetWidth, targetHeight);
     ctx.drawImage(resizedImage, x, y, targetWidth, targetHeight);
     ctx.save();
     ctx.scale(-1, 1);
     ctx.drawImage(image, -x - image.width, y, image.width, image.height);
     ctx.restore(); // 이전 캔버스 상태로 복원
-    x += image.width;
-    if (x >= canvas.width) {
+    x += targetWidth;
+    if ((index + 1) % 2 === 0) {
       x = 0;
-      y += image.height;
+      y += targetHeight;
     }
   });
-
   return imageObjects;
 };
 
