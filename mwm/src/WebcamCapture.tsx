@@ -87,48 +87,44 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
   //이미지 합성
   const mergeAndUploadImage = async () => {
     const canvas = document.createElement('canvas');
-    //이미지를 blob에서 image 객체로 변환하여 크기 정보 얻기
+    // 이미지를 blob에서 image 객체로 변환하여 크기 정보 얻기
     const imageObjects = await getImageObject(imageList);
-    //이미지 크기 정보를 바탕으로 캔버스 크기 설정
-    canvas.width = imageObjects[0].width * 2;
-    canvas.height = imageObjects[0].height * 2;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      throw new Error('canvas 가져오기 실패');
-    }
-
-    imageSetting(ctx, imageObjects);
-
     // photoFrame 이미지를 그림
     const frameImage = new Image();
     frameImage.src = '/photoFrame.png';
     await new Promise<void>((resolve) => {
-      frameImage.onload = () => {
-        ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
+      frameImage.onload = async () => {
+        canvas.width = frameImage.width;
+        canvas.height = frameImage.height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          imageSetting(ctx, imageObjects);
 
-        // 합성된 이미지를 Firebase Storage에 업로드
-        const storageRef = ref(newStorage, `images/mergedImage${currentTime}.jpg`);
-        canvas.toBlob(
-          async (blob) => {
-            if (blob) {
-              try {
-                await uploadBytes(storageRef, blob);
+          ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
 
-                const downloadURL = await getDownloadURL(storageRef);
-                console.log('Image URL:', downloadURL);
+          // 합성된 이미지를 Firebase Storage에 업로드
+          const storageRef = ref(newStorage, `images/mergedImage${currentTime}.jpg`);
+          canvas.toBlob(
+            async (blob) => {
+              if (blob) {
+                try {
+                  await uploadBytes(storageRef, blob);
 
-                //이미지 업로드 후 이미지 불러오기
-                setDone(true);
-              } catch (err) {
-                console.log(err);
+                  const downloadURL = await getDownloadURL(storageRef);
+                  console.log('Image URL:', downloadURL);
+
+                  //이미지 업로드 후 이미지 불러오기
+                  setDone(true);
+                } catch (err) {
+                  console.log(err);
+                }
               }
-            }
-            resolve();
-          },
-          'image/jpeg',
-          0.9,
-        );
+              resolve();
+            },
+            'image/jpeg',
+            0.9,
+          );
+        }
       };
     });
   };
@@ -208,47 +204,52 @@ const WebcamCapture = ({ cnt, setCnt }: { cnt: number; setCnt: Dispatch<SetState
 
 export default WebcamCapture;
 
-const imageSetting = (ctx: CanvasRenderingContext2D, imageObjects: HTMLImageElement[]) => {
+const imageSetting = async (ctx: CanvasRenderingContext2D, imageObjects: HTMLImageElement[]) => {
   const canvas = document.createElement('canvas');
-  // 이미지를 16:9 비율로 리사이즈하여 배치
-  const targetHeight = canvas.height / 2; // 2열로 배치하므로 절반의 너비
-  const targetWidth = (targetHeight * 9) / 16; // 16:9 비율 계산
+  const frameImage = new Image();
+  const resizeImage = async (image: HTMLImageElement, width: number, height: number): Promise<HTMLImageElement> => {
+    return new Promise<HTMLImageElement>((resolve) => {
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
 
-  const resizeImage = (image: HTMLImageElement, width: number, height: number): HTMLImageElement => {
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
-
-    if (ctx) {
-      ctx.drawImage(image, 0, 0, width, height);
-    }
-
-    const resizedImage = new Image();
-    resizedImage.src = canvas.toDataURL('image/jpeg');
-    return resizedImage;
+      if (ctx) {
+        ctx.drawImage(image, 0, 0, width, height);
+        const resizedImage = new Image();
+        resizedImage.src = canvas.toDataURL('image/jpeg');
+        resizedImage.onload = () => {
+          resolve(resizedImage);
+        };
+      }
+    });
   };
+  frameImage.src = '/photoFrame.png';
+  await new Promise<void>((resolve) => {
+    frameImage.onload = async () => {
+      const targetHeight = frameImage.height / 2;
+      const targetWidth = (targetHeight * 9) / 16;
 
-  // 이미지 2x2로 배치
-  let x = 0;
-  let y = 0;
-  //이미지 크기 정보를 바탕으로 캔버스 크기 설정
-  // canvas.width = imageObjects[0].width * 2;
-  // canvas.height = imageObjects[0].height * 2;
-  imageObjects.forEach((image, index) => {
-    const resizedImage = resizeImage(image, targetWidth, targetHeight);
-    ctx.drawImage(resizedImage, x, y, targetWidth, targetHeight);
-    ctx.save();
-    ctx.scale(-1, 1);
-    ctx.drawImage(image, -x - image.width, y, image.width, image.height);
-    ctx.restore(); // 이전 캔버스 상태로 복원
-    x += targetWidth;
-    if ((index + 1) % 2 === 0) {
-      x = 0;
-      y += targetHeight;
-    }
+      canvas.width = frameImage.width;
+      canvas.height = frameImage.height;
+
+      ctx.drawImage(frameImage, 0, 0, canvas.width, canvas.height);
+
+      let x = 0;
+      let y = 0;
+      for (let i = 0; i < imageObjects.length; i++) {
+        const resizedImage = await resizeImage(imageObjects[i], targetWidth, targetHeight);
+        ctx.drawImage(resizedImage, x, y, targetWidth, targetHeight);
+        x += targetWidth;
+        if ((i + 1) % 2 === 0) {
+          x = 0;
+          y += targetHeight;
+        }
+      }
+
+      resolve();
+    };
   });
-  return imageObjects;
 };
 
 const getImageObject = async (imageList: Blob[]) => {
