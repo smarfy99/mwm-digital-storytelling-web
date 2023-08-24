@@ -2,35 +2,26 @@ import { useState, useEffect, useRef } from 'react';
 import { storage } from '../firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
 import QRCode from 'qrcode.react';
-import { useRecoilValue } from 'recoil';
-import { time } from '../atom/currentTime';
-import { done } from '../atom/currentTime';
-import Last from './Last';
+
 // 웹 시작
 const MoziCamera = () => {
   // mergedImageURL에 이미지 URL 저장
   const [mergedImageURL, setMergedImageURL] = useState<string | null>(null);
   const qrCodeRef = useRef<any>(null);
-  const currentTime = useRecoilValue(time);
-  const doneValue = useRecoilValue(done);
 
   useEffect(() => {
-    const fetchImageURL = async () => {
-      // Firebase Storage에서 이미지 불러오기
-      const newStorage = storage;
-      const imageRef = ref(newStorage, `images/mergedImage${currentTime}.jpg`);
+    // Firebase Storage에서 이미지 불러오기
+    const newStorage = storage;
+    const imageRef = ref(newStorage, 'images/mergedImage.jpg');
 
-      try {
-        if (doneValue) {
-          const url = await getDownloadURL(imageRef);
-          setMergedImageURL(url);
-        }
-      } catch (error) {
+    getDownloadURL(imageRef)
+      .then((url) => {
+        setMergedImageURL(url);
+      })
+      .catch((error) => {
         console.error('이미지 불러오기 실패 : ', error);
-      }
-    };
-    fetchImageURL();
-  }, [currentTime, doneValue]);
+      });
+  }, []);
 
   useEffect(() => {
     if (qrCodeRef.current && mergedImageURL) {
@@ -40,53 +31,35 @@ const MoziCamera = () => {
     }
   }, [mergedImageURL]);
 
-  const [page, setPage] = useState(true);
-
-  useEffect(() => {
-    // 5초 후, sub 컴포넌트로 이동
-    const timer = setTimeout(() => {
-      setPage(false);
-    }, 30000);
-
-    // timer unmount
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <div>
-      {page ? (
-        <div className="relative justify-center items-center bg-white">
-          <img src="/oziBack.png" alt="mozi" className="relative w-screen" />
+    <div className="relative justify-center items-center bg-white">
+      <img src="/oziBack.png" alt="mozi" className="relative w-screen" />
 
-          {mergedImageURL ? (
-            <img src={mergedImageURL} alt="mergedImage" className="w-2/5 inset-y-72 inset-x-32 absolute" />
-          ) : (
-            <p>image loading</p>
-          )}
-
-          <div className="absolute top-72 right-60">
-            {mergedImageURL && (
-              <QRCode
-                ref={qrCodeRef}
-                level={'M'}
-                value={mergedImageURL || ''}
-                size={300}
-                bgColor="transparent"
-                imageSettings={{
-                  src: '/mozii.png',
-                  x: undefined,
-                  y: undefined,
-                  height: 100,
-                  width: 200,
-                  excavate: false,
-                }}
-              />
-            )}
-          </div>
-        </div>
+      {mergedImageURL ? (
+        <img src={mergedImageURL} alt="mergedImage" className="w-2/5 inset-y-72 inset-x-32 absolute" />
       ) : (
-        <Last />
+        <p>이미지 불러오는 중...</p>
       )}
+
+      <div className="absolute top-72 right-60">
+        {mergedImageURL && (
+          <QRCode
+            ref={qrCodeRef}
+            level={'M'}
+            value={mergedImageURL || ''}
+            size={300}
+            bgColor="transparent"
+            imageSettings={{
+              src: '/mozii.png',
+              x: undefined,
+              y: undefined,
+              height: 100,
+              width: 200,
+              excavate: false,
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };
