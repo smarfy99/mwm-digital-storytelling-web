@@ -13,17 +13,19 @@ const MoziCamera = () => {
   const currentTime = useRecoilValue(time);
 
   useEffect(() => {
-    // Firebase Storage에서 이미지 불러오기
-    const newStorage = storage;
-    const imageRef = ref(newStorage, `images/mergedImage${currentTime}.jpg`);
+    const fetchImageURL = async () => {
+      // Firebase Storage에서 이미지 불러오기
+      const newStorage = storage;
+      const imageRef = ref(newStorage, `images/mergedImage${currentTime}.jpg`);
 
-    getDownloadURL(imageRef)
-      .then((url) => {
+      try {
+        const url = await getDownloadURL(imageRef);
         setMergedImageURL(url);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('이미지 불러오기 실패 : ', error);
-      });
+      }
+    };
+    fetchImageURL();
   }, [currentTime]);
 
   useEffect(() => {
