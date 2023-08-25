@@ -40,33 +40,47 @@ const MoziCamera = () => {
     }
   }, [mergedImageURL]);
 
-  useEffect(() => {
-    // 5초 후, sub 컴포넌트로 이동
-    const timer = setTimeout(() => {
-      window.location.href = '/';
-    }, 20000);
+  // useEffect(() => {
+  //   // 5초 후, sub 컴포넌트로 이동
+  //   const timer = setTimeout(() => {
+  //     window.location.href = '/';
+  //   }, 20000);
 
-    // timer unmount
-    return () => clearTimeout(timer);
-  }, []);
+  //   // timer unmount
+  //   return () => clearTimeout(timer);
+  // }, []);
+
+  const [isModal, setIsModal] = useState(false);
+
+  const handleModalOpen = () => {
+    if (mergedImageURL) {
+      // Open a new window with the image URL
+      window.open(mergedImageURL, '_blank', 'width=800,height=600,resizable=yes');
+    }
+  };
 
   return (
     <div className="relative justify-center items-center bg-white">
       <img src="/oziBack.png" alt="mozi" className="relative w-screen" />
 
       {mergedImageURL ? (
-        <img src={mergedImageURL} alt="mergedImage" className="w-2/5 inset-y-72 inset-x-32 absolute" />
+        <img
+          src={mergedImageURL}
+          onClick={handleModalOpen}
+          alt="mergedImage"
+          className="w-2/5 inset-y-96 inset-x-40 absolute"
+        />
       ) : (
         <p>image loading</p>
       )}
 
-      <div className="absolute top-72 right-60">
+      <div className="absolute top-96 right-96">
         {mergedImageURL && (
           <QRCode
             ref={qrCodeRef}
             level={'M'}
             value={mergedImageURL || ''}
-            size={300}
+            size={400}
             bgColor="transparent"
             imageSettings={{
               src: '/mozii.png',
