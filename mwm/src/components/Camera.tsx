@@ -40,15 +40,15 @@ const MoziCamera = () => {
     }
   }, [mergedImageURL]);
 
-  // useEffect(() => {
-  //   // 5초 후, sub 컴포넌트로 이동
-  //   const timer = setTimeout(() => {
-  //     window.location.href = '/';
-  //   }, 20000);
+  useEffect(() => {
+    // 5초 후, sub 컴포넌트로 이동
+    const timer = setTimeout(() => {
+      window.location.href = '/';
+    }, 40000);
 
-  //   // timer unmount
-  //   return () => clearTimeout(timer);
-  // }, []);
+    // timer unmount
+    return () => clearTimeout(timer);
+  }, []);
 
   const [isModal, setIsModal] = useState(false);
 
@@ -68,13 +68,13 @@ const MoziCamera = () => {
           src={mergedImageURL}
           onClick={handleModalOpen}
           alt="mergedImage"
-          className="w-2/5 inset-y-96 inset-x-40 absolute"
+          className="w-2/5 inset-y-72 inset-x-32 absolute"
         />
       ) : (
         <p>image loading</p>
       )}
 
-      <div className="absolute top-96 right-96">
+      <div className="absolute top-72 right-60">
         {mergedImageURL && (
           <QRCode
             ref={qrCodeRef}
