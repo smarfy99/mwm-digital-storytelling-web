@@ -80,7 +80,7 @@ const MoziCamera = () => {
             ref={qrCodeRef}
             level={'M'}
             value={mergedImageURL || ''}
-            size={400}
+            size={300}
             bgColor="transparent"
             imageSettings={{
               src: '/mozii.png',
